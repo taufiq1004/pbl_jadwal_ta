@@ -10,19 +10,15 @@
                     <div class="card shadow mb-4">
                         <div>
                             <!-- Tambahkan elemen lain sesuai kebutuhan -->
-                            <a href="{{ url('/formLecturer') }}" class="btn btn-primary">Tambah Data</a>
+                            <a href="{{ url('/formProdi') }}" class="btn btn-primary">Tambah Data</a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr class="table-info">
-                                            <th>Id Lecturer</th>
-                                            <th>Nidn</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Position</th>
-                                            <th>prodi</th>
+                                            <th>Id Prodi</th>
+                                            <th>Name Prodi</th>
                                             {{-- <th>Email</th>
                                             <th>Password</th>
                                             <th>Foto</th>
@@ -46,22 +42,18 @@
                                         {{-- </tr> --}}
                                     </tfoot>
                                     <tbody>                                        
-                                        @foreach ($data_lecturer as $data)
+                                        @foreach ($data_prodi as $data)
                                         <tr class="table-Light">
-                                            <th>{{$data->id_lecturer}}</th>
-                                            <th>{{$data->nidn}}</th>
-                                            <th>{{$data->name}}</th>
-                                            <th>{{$data->email}}</th>
-                                            <th>{{$data->position}}</th>
-                                            <th>{{$data->prodi_id}}</th>
+                                            <th>{{$data->id_prodi}}</th>
+                                            <th>{{$data->name_prodi}}</th>
                                             {{-- <th>{{$data->email}}</th>
                                             <th>{{$data->password}}</th>
                                             <th>{{$data->image}}</th>
                                             <th>{{$data->status}}</th> --}}
                                             <th>
                                                 {{-- <a data-bs-toggle="modal" data-bs-target="#detail{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-three-dots-vertical"></i></a> --}}
-                                                <a href="/update/{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i>Update</a>
-                                                <a href="/delete/{{ $data->id_lecturer }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="bi bi-trash">Delete</i></a>
+                                                <a href="/update/{{ $data->id_prodi }}" class="btn btn-secondary"><i class="bi bi-pencil-square"></i>Update</a>
+                                                <a href="/delete/{{ $data->id_prodi }}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');"><i class="bi bi-trash">Delete</i></a>
                                             </th>
                                         </tr>
 

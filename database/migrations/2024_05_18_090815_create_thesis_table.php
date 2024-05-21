@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('nidn_supervisor');
             $table->string('nidn_examiner');
-            //$table->timestamps();
+           
         });
         Schema::table('thesis', function (Blueprint $table) {
             $table->foreign('nim_student')->references('nim')->on('students')

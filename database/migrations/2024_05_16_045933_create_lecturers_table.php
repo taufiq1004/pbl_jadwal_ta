@@ -11,13 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('examiners', function (Blueprint $table) {
-            $table->increments('id_examiner');
+        Schema::create('lecturers', function (Blueprint $table) {
+            $table->increments('id_lecturer');
             $table->string('nidn')->unique();
             $table->string('name');
+            $table->string('email');
             $table->string('position');
-            $table->string('prodi');
+            $table->unsignedBigInteger('prodi_id'); // Menggunakan unsignedBigInteger untuk prodi_id
+            
+            $table->foreign('prodi_id')->references('id_prodi')->on('prodis')
+                  ->onUpdate('cascade')->onDelete('cascade');
         });
+        
     }
 
     /**
@@ -25,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('examiners');
+        Schema::dropIfExists('lecturers');
     }
 };

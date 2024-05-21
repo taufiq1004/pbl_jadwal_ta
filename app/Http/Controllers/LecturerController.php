@@ -9,6 +9,7 @@ class LecturerController extends Controller
     public function index()
     {
         $data_lecturer = DB::table('lecturers')
+            ->join('prodis', 'lecturers.prodi_id', '=', 'prodis.id_prodi')
             ->orderByDesc('id_lecturer')
             ->get();
 
