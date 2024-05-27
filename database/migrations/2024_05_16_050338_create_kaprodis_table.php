@@ -15,9 +15,13 @@ return new class extends Migration
             $table->increments('id_kaprodi');
             $table->string('nidn')->unique();
             $table->string('name');
-            $table->string('program_study');
-            $table->timestamps();
+            $table->unsignedBigInteger('prodi_id');
         });
+
+        Schema::table('kaprodis', function (Blueprint $table) {
+            $table->foreign('prodi_id')->references('id_prodi')->on('prodis')
+                    ->onUpdate('cascade')->onDelete('cascade');
+    });
     }
 
     /**

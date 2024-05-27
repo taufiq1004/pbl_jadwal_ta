@@ -18,7 +18,7 @@
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
-  <!-- Sidebar -->
+  {{-- <!-- Sidebar -->
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4" id="sidenav-main">
     <!-- Sidebar Header -->
     <div class="sidenav-header">
@@ -43,7 +43,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('lecturer') }}">
+          <a class="nav-link" href="{{ route('backend.lecturer') }}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
@@ -101,13 +101,21 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav>  --}}
     <!-- Content Section -->
+
+    @include('layouts.backend.navbar')
     <div class="container-fluid py-4">
       <!-- Your content goes here -->
       <h1>Selamat datang di Sistem Informasi Penjadwalan Tugas Akhir (SIPSITA)</h1>
       <p>Anda dapat menggunakan menu di sidebar untuk mengakses fitur-fitur yang tersedia.</p>
     </div>
+    <div class="container my-3">
+      @yield('content')
+     
+ </div>
+     @include('layouts.backend.footer')
+
   </main>
 
   <!-- Core JS Files -->

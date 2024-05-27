@@ -1,6 +1,7 @@
 @extends('dashboard-content')
 @section('content')
     <div class="container-fluid py-4">
+        
         <div class="row">
             <div class="col-xl-4 col-md-6 mb-xl-0 mb-4">
                 <div class="card">
@@ -130,7 +131,7 @@
     </div>
 
     <!-- Profile Picture with Menu -->
-    <div class="profile-container">
+    {{-- <div class="profile-container">
         <img src="profile.jpg" alt="Profile Picture" id="profile-img" class="profile-img" onclick="toggleMenu()">
         <div id="menu" class="menu hidden">
             <ul>
@@ -139,5 +140,5 @@
                 <li><a href="#">Logout</a></li>
             </ul>
         </div>
-    </div>
+    </div> --}}
 @endsection
