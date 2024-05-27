@@ -5,21 +5,21 @@
     <div class="card">
         <div class="card-body">
             <!-- Page Heading -->
-            <h5 class="card-title fw-semibold mb-4">Data Lecturer</h5>
+            <h5 class="card-title fw-semibold mb-4">Data Student</h5>
             <div class="container-fluid">
-                <!-- DataDosen -->
+                <!-- DataMahasiswa -->
                 <div class="card shadow mb-4">
                     <div>
-                        <a href="{{ url('/formLecturer') }}" class="btn btn-primary btn-sm">
+                        <a href="{{ url('/formStudent') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Add Data
                         </a>
-                        <a href="{{ url('lecturer/export_excel') }}" class="btn btn-success btn-sm">
+                        <a href="{{ url('student/export_excel') }}" class="btn btn-success btn-sm">
                             <i class="fas fa-file-excel"></i> Export
                         </a>
                         <!-- Button untuk membuka modal import -->
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importModal">
                             <i class="fas fa-cloud-upload-alt"></i> Import
-                        </button>                        
+                        </button>        
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -33,30 +33,26 @@
                                 <thead class="table-bordered">
                                     <tr class="table-info">
                                         <th>Id</th>
-                                        <th>Nidn</th>
+                                        <th>NIM</th>
                                         <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Position</th>
+                                        <th>Program Study</th>
+                                        <th>Force</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_lecturer as $data)
+                                    @foreach ($data_student as $data)
                                     <tr>
-                                        <td>{{ $data->id_lecturer }}</td>
-                                        <td>{{ $data->nidn }}</td>
+                                        <td>{{ $data->id_student }}</td>
+                                        <td>{{ $data->nim }}</td>
                                         <td>{{ $data->name }}</td>
-                                        <td>{{ $data->email }}</td>
-                                        <td>{{ $data->position }}</td>
+                                        <td>{{ $data->prodi_name }}</td>
+                                        <td>{{ $data->force }}</td>
                                         <td>
-                                            <form action="{{ route('lecturer.edit', ['id' => $data->id_lecturer]) }}" method="GET" style="display: inline;">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-secondary">
-                                                    <i class="fas fa-edit"></i> Update
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('lecturer.destroy', $data->id_lecturer) }}" method="POST" style="display:inline-block;">
+                                            <a href="{{ route('student.edit', ['id' => $data->id_student]) }}" class="btn btn-secondary">
+                                                <i class="fas fa-edit"></i> Update
+                                            </a>
+                                            <form action="{{ route('student.destroy', $data->id_student) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
@@ -76,7 +72,7 @@
     </div>
 </div>
 
-<!-- Modal untuk import -->
+{{-- <!-- Modal untuk import -->--}}
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -87,7 +83,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('lecturer.import_excel') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('student.import_excel') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="file">Choose Excel File</label>

@@ -105,17 +105,17 @@
     <!-- Content Section -->
 
     @include('layouts.backend.navbar')
-    <div class="container my-3">
-      @yield('content')
- </div>
-     @include('layouts.backend.footer')
-
-
     <div class="container-fluid py-4">
       <!-- Your content goes here -->
       <h1>Selamat datang di Sistem Informasi Penjadwalan Tugas Akhir (SIPSITA)</h1>
       <p>Anda dapat menggunakan menu di sidebar untuk mengakses fitur-fitur yang tersedia.</p>
     </div>
+    <div class="container my-3">
+      @yield('content')
+     
+ </div>
+     @include('layouts.backend.footer')
+
   </main>
 
   <!-- Core JS Files -->

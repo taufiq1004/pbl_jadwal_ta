@@ -17,10 +17,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('position');
-            $table->unsignedBigInteger('prodi_id'); // Menggunakan unsignedBigInteger untuk prodi_id
-            
-            $table->foreign('prodi_id')->references('id_prodi')->on('prodis')
-                  ->onUpdate('cascade')->onDelete('cascade');
         });
         
     }
