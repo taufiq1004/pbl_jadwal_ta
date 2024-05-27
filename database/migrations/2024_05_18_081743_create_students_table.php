@@ -12,14 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('students', function (Blueprint $table) {
-           $table->increments('id_student');
-           $table->string('nim')->unique();
-           $table->string('name');
-           $table->string('prodi');
-           $table->string('force');
+            $table->increments('id_student');
+            $table->string('nim')->unique();
+            $table->string('name');
+            $table->unsignedBigInteger('prodi_id');
+            $table->string('force');
+           
         });
-    }
 
+        Schema::table('students', function (Blueprint $table) {
+            $table->foreign('prodi_id')->references('id_prodi')->on('prodis')
+                    ->onUpdate('cascade')->onDelete('cascade');
+    });
+    }
     /**
      * Reverse the migrations.
      */
