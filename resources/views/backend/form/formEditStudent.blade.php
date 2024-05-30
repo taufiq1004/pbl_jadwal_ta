@@ -13,10 +13,6 @@
                                 @csrf
                                 @method('PUT')
                                 <div class="mb-3">
-                                    <label for="id_student" class="form-label">Id Student</label>
-                                    <input type="text" class="form-control" id="id_student" name="id_student" value="{{ $student->id_student }}" required>
-                                </div>
-                                <div class="mb-3">
                                     <label for="nim" class="form-label">NIM</label>
                                     <input type="text" class="form-control" id="nim" name="nim" value="{{ $student->nim }}" required>
                                 </div>

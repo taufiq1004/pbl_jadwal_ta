@@ -9,10 +9,7 @@
                     <div class="card-body">
                         <form action="{{ route('lecturer.store') }}" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <label for="id_lecturer" class="form-label">Id Lecturer</label>
-                                <input type="text" class="form-control" id="id_lecturer" name="id_lecturer" required>
-                            </div>
+        
                             <div class="mb-3">
                                 <label for="nidn" class="form-label">Nidn</label>
                                 <input type="text" class="form-control" id="nidn" name="nidn" required>
@@ -22,13 +19,21 @@
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label">Jenis Kelamin</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="laki-laki" name="gender" value="Laki-Laki" required>
+                                    <label class="form-check-label" for="laki-laki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="perempuan" name="gender" value="Perempuan" required>
+                                    <label class="form-check-label" for="perempuan">Perempuan</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="position" class="form-label">Position</label>
-                                <input type="text" class="form-control" id="position" name="position" required>
-                            </div>
+                            
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="{{ route('backend.lecturer') }}" class="btn btn-secondary">Cancel</a>
                         </form>
