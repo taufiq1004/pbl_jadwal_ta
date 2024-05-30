@@ -15,8 +15,8 @@ class studentseeder extends Seeder
     {
         //
         $studentData=[
-            ['2211082004','Athira Rahmadini','TRPL','22'],
-            ['2211081006','Cindy Steffani','TRPL','22']
+            ['2211082004','Athira Rahmadini','1','22'],
+            ['2211081006','Cindy Steffani','1','22']
         ];
 
         foreach($studentData as $data){
