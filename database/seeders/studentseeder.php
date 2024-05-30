@@ -23,7 +23,7 @@ class studentseeder extends Seeder
             DB::table('students')->insert([
                 'nim'=>$data[0],
                 'name'=>$data[1],
-                'prodi'=>$data[2],
+                'prodi_id'=>$data[2],
                 'force'=>$data[3]
             ]);
         }

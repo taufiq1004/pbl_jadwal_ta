@@ -24,6 +24,14 @@
               </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.prodi') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-graduation-cap text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Program Studi</span>
+            </a>
+        </li>
+          <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.student') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="fas fa-user-graduate text-warning text-sm opacity-10"></i>
@@ -31,23 +39,23 @@
                 <span class="nav-link-text ms-1">Student</span>
             </a>
         </li>
-        
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('backend.prodi') }}">
-                  <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i class="fas fa-graduation-cap text-warning text-sm opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Program Studi</span>
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="{{ route('backend.lecturer') }}">
-                  <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                      <i class="fas fa-chalkboard-teacher text-warning text-sm opacity-10"></i>
-                  </div>
-                  <span class="nav-link-text ms-1">Lecturer</span>
-              </a>
-          </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.lecturer') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-chalkboard-teacher text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Lecturer</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.thesis') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-book text-warning text-sm opacity-10"></i> <!-- Menggunakan ikon buku untuk Thesis -->
+                </div>
+                <span class="nav-link-text ms-1">Thesis</span>
+            </a>
+        </li>
+       
           <li class="nav-item">
               <a class="nav-link" href="{{ route('backend.room') }}">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -100,8 +108,8 @@
               <ul class="navbar-nav justify-content-end">
                 <li class="nav-item d-flex align-items-center">
                     <a href="#" class="nav-link font-weight-bold px-3">
-                        <i class="fa fa-user me-1 text-primary"></i>
-                        <span class="d-sm-inline d-none text-dark">Masuk</span>
+                        <i class="fa fa-bell me-1 text-primary"></i>
+                        <span class="d-sm-inline d-none text-dark">Notifications</span>
                     </a>
                 </li>
                 <li class="nav-item d-flex align-items-center">

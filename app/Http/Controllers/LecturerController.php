@@ -13,7 +13,7 @@ class LecturerController extends Controller
     public function index()
     {
         $data_lecturer = DB::table('lecturers')
-            ->orderBy('id_lecturer') // Order by id_prodi from smallest to largest
+            ->orderBy('nidn') // Order by id_prodi from smallest to largest
             ->get();
         return view('backend.lecturer', compact('data_lecturer'));
     }
@@ -26,11 +26,11 @@ class LecturerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_lecturer' => 'required',
             'nidn' => 'required',
             'name' => 'required',
+            'gender' => 'required',
             'email' => 'required|email',
-            'position' => 'required',
+            
         ]);
 
         Lecturer::create($request->all());
@@ -39,7 +39,7 @@ class LecturerController extends Controller
 
     public function edit($id)
     {
-        $lecturer= lecturer::where('id_lecturer',$id)->first();
+        $lecturer= lecturer::where('nidn',$id)->first();
         return view('backend.form.formEditLecturer', compact('lecturer'));
     }
 
@@ -48,23 +48,25 @@ class LecturerController extends Controller
         $request->validate([
             'nidn' => 'required',
             'name' => 'required',
+            'gender' => 'required',
             'email' => 'required|email',
-            'position' => 'required',
+            
         ]);
 
         $data=[
             'nidn'=> $request->nidn,
             'name'=> $request->name,
+            'gender'=> $request->gender,
             'email'=> $request->email,
-            'position'=> $request->position,
+           
         ];
-        DB::table('lecturers')->where('id_lecturer',$id)->update($data);
+        DB::table('lecturers')->where('nidn',$id)->update($data);
         return redirect('/lecturers')->with('success', 'Lecturer updated successfully.');
     }
 
     public function destroy($id)
     {
-        DB::table ('lecturers')->where('id_lecturer',$id)->delete();
+        DB::table ('lecturers')->where('nidn',$id)->delete();
         return redirect('/lecturers')->with('success', 'Lecturer deleted successfully.');
     }
 

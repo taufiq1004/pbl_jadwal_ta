@@ -15,7 +15,7 @@ class ExportDosen implements FromCollection
     {
         //
         $data_lecturer = DB::table('lecturers')
-            ->orderBy('id_lecturer') // Order by id_prodi from smallest to largest
+            ->orderBy('nidn') // Order by id_prodi from smallest to largest
             ->get();
             return $data_lecturer;
     }

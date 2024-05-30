@@ -15,7 +15,7 @@ class StudentController extends Controller
         $data_student = DB::table('students')
             ->join('prodis', 'students.prodi_id', '=', 'prodis.id_prodi')
             ->select('students.*', 'prodis.name_prodi as prodi_name')
-            ->orderBy('id_student')
+            ->orderBy('nim')
             ->get();
         return view('backend.student', compact('data_student'));
     }
@@ -29,7 +29,6 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'id_student' => 'required',
             'nim' => 'required',
             'name' => 'required',
             'prodi_id' => 'required',
@@ -42,7 +41,7 @@ class StudentController extends Controller
 
     public function edit($id)
     {
-        $student = Student::where('id_student', $id)->first();
+        $student = Student::where('nim', $id)->first();
         $prodi = DB::table('prodis')->get();
         return view('backend.form.formEditStudent', compact('student', 'prodi'));
     }
@@ -62,13 +61,13 @@ class StudentController extends Controller
             'prodi_id' => $request->prodi_id,
             'force' => $request->force,
         ];
-        DB::table('students')->where('id_student', $id)->update($data);
+        DB::table('students')->where('nim', $id)->update($data);
         return redirect('/students')->with('success', 'Student updated successfully.');
     }
 
     public function destroy($id)
     {
-        DB::table('students')->where('id_student', $id)->delete();
+        DB::table('students')->where('nim', $id)->delete();
         return redirect('/students')->with('success', 'Student deleted successfully.');
     }
 
