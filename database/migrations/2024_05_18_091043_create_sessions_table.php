@@ -15,16 +15,14 @@ return new class extends Migration
             $table->id('id_session');
             $table->string('nim_student');
             $table->unsignedBigInteger('ta_id');
-            $table->string('nidn_supervisor1');
-            $table->string('nidn_supervisor2');
-            $table->string('nidn_examiner1');
-            $table->string('nidn_examiner2');
-            $table->string('nidn_examiner3');
-            $table->string('nidn_kaprodi');
-            $table->string('number_room');
+            $table->string('pembimbing1');
+            $table->string('pembimbing2');
+            $table->string('ketua_sidang');
+            $table->string('sekretaris');
+            $table->string('penguji1');
+            $table->string('penguji2');
+            $table->unsignedBigInteger('no_room');
             $table->date('date_session');
-            $table->string('final_score');
-            $table->string('status');
            // $table->timestamps();
         });
         Schema::table('sessions', function (Blueprint $table) {
@@ -32,19 +30,19 @@ return new class extends Migration
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ta_id')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_supervisor1')->references('nidn')->on('supervisors')
+            $table->foreign('pembimbing1')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_supervisor2')->references('nidn')->on('supervisors')
+            $table->foreign('pembimbing2')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_examiner1')->references('nidn')->on('examiners')
+            $table->foreign('ketua_sidang')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_examiner2')->references('nidn')->on('examiners')
+            $table->foreign('sekretaris')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_examiner3')->references('nidn')->on('examiners')
+            $table->foreign('penguji1')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('nidn_kaprodi')->references('nidn')->on('kaprodis')
+            $table->foreign('penguji2')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('number_room')->references('no_room')->on('rooms')
+            $table->foreign('no_room')->references('id_room')->on('rooms')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
     }

@@ -32,7 +32,7 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table-bordered">
                                     <tr class="table-info">
-                                        <th>Id</th>
+                                        <th>No</th>
                                         <th>NIM</th>
                                         <th>Name</th>
                                         <th>Program Study</th>
@@ -41,24 +41,25 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_student as $data)
+                                    @foreach ($data_student as $index => $data)
                                     <tr>
-                                        <td>{{ $data->id_student }}</td>
+                                        <td>{{ $index +1 }}</td>
                                         <td>{{ $data->nim }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->prodi_name }}</td>
                                         <td>{{ $data->force }}</td>
                                         <td>
-                                            <a href="{{ route('student.edit', ['id' => $data->id_student]) }}" class="btn btn-secondary">
+                                            <a href="{{ route('student.edit', $data->nim) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
-                                            <form action="{{ route('student.destroy', $data->id_student) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('student.destroy', $data->nim) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
+
                                         </td>
                                     </tr>
                                     @endforeach

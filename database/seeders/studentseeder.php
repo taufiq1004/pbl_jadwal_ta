@@ -15,15 +15,15 @@ class studentseeder extends Seeder
     {
         //
         $studentData=[
-            ['2211082004','Athira Rahmadini','TRPL','22'],
-            ['2211081006','Cindy Steffani','TRPL','22']
+            ['2211082004','Athira Rahmadini','1','22'],
+            ['2211081006','Cindy Steffani','1','22']
         ];
 
         foreach($studentData as $data){
             DB::table('students')->insert([
                 'nim'=>$data[0],
                 'name'=>$data[1],
-                'prodi'=>$data[2],
+                'prodi_id'=>$data[2],
                 'force'=>$data[3]
             ]);
         }

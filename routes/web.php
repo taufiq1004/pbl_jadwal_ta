@@ -3,10 +3,13 @@ use App\Http\Controllers\ProdiController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\thesisController;
+use App\Http\Controllers\DetailThesisController;
 use App\Models\Lecturer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\Student;
+use App\Models\Thesis;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,8 +68,17 @@ Route::get('/student', function () {
     return view('backend.student');
 })->name('student');
 
+Route::get('/thesis', function () {
+    return view('backend.thesis');
+})->name('thesis');
+
+Route::get('/detailthesis', function () {
+    return view('backend.detailThesis');
+})->name('detailThesis');
+
 Route::resource('lecturers', LecturerController::class);
 Route::resource('students', StudentController::class);
+Route::resource('thesis', ThesisController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
@@ -84,6 +96,8 @@ Route::get('/backend/lecturer', [App\Http\Controllers\LecturerController::class,
 Route::get('/backend/prodi', [App\Http\Controllers\ProdiController::class, 'index'])->name('backend.prodi');
 Route::get('/backend/room', [App\Http\Controllers\RoomController::class, 'index'])->name('backend.room');
 Route::get('/backend/student', [StudentController::class, 'index'])->name('backend.student');
+Route::get('/backend/thesis', [App\Http\Controllers\ThesisController::class, 'index'])->name('backend.thesis');
+Route::get('/backend/detailThesis', [App\Http\Controllers\DetailThesisController::class, 'index'])->name('backend.detailThesis');
 
 
 Route::middleware('auth')->group(function () {
@@ -125,4 +139,21 @@ Route::delete('/student/delete/{id}', [StudentController::class, 'destroy'])->na
 Route::get('student/export_excel', [StudentController::class, 'export_excel']);
 Route::post('student/import_excel', [StudentController::class, 'import_excel']);
 Route::post('student/import_excel', [StudentController::class, 'import_excel'])->name('student.import_excel');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/formThesis', [ThesisController::class, 'create'])->name('formThesis');
+    Route::post('/thesis/store', [ThesisController::class, 'store'])->name('thesis.store');
+    Route::get('/thesis/{id}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
+    Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
+    Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+Route::get('/detailThesis', [DetailThesisController::class, 'index']);
+Route::get('/formDetailThesis', [DetailThesisController::class, 'create']);
+Route::post('/detailThesis', [DetailThesisController::class, 'store'])->name('detailThesis.store');
+Route::get('/detailThesis/edit/{id}', [DetailThesisController::class, 'edit'])->name('detailThesis.edit');
+Route::put('/detailThesis/update/{id}', [DetailThesisController::class, 'update'])->name('detailThesis.update');
+Route::delete('/detailThesis/{id}', [DetailThesisController::class, 'destroy'])->name('detailThesis.destroy');
 });

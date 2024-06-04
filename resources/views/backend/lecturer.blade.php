@@ -32,34 +32,45 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table-bordered">
                                     <tr class="table-info">
-                                        <th>Id</th>
+                                        <th>No</th>
                                         <th>Nidn</th>
                                         <th>Name</th>
+                                        <th>Jenis Kelamin</th>
                                         <th>Email</th>
-                                        <th>Position</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_lecturer as $data)
+                                    @foreach ($data_lecturer as $index => $data)
                                     <tr>
-                                        <td>{{ $data->id_lecturer }}</td>
+                                        <td>{{ $index + 1 }}</td>
                                         <td>{{ $data->nidn }}</td>
                                         <td>{{ $data->name }}</td>
+                                        <td>{{ $data->gender }}</td>
                                         <td>{{ $data->email }}</td>
-                                        <td>{{ $data->position }}</td>
                                         <td>
-                                            <form action="{{ route('lecturer.edit', ['id' => $data->id_lecturer]) }}" method="GET" style="display: inline;">
+                                            {{-- <form action="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" method="GET" style="display: inline;">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fas fa-edit"></i> Update
                                                 </button>
                                             </form>
-                                            <form action="{{ route('lecturer.destroy', $data->id_lecturer) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form> --}}
+
+                                            <a href="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-edit"></i> Update
+                                            </a>
+                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
