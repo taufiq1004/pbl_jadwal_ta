@@ -4,6 +4,7 @@ use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\thesisController;
+use App\Http\Controllers\DetailThesisController;
 use App\Models\Lecturer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
@@ -71,7 +72,9 @@ Route::get('/thesis', function () {
     return view('backend.thesis');
 })->name('thesis');
 
-
+Route::get('/detailthesis', function () {
+    return view('backend.detailThesis');
+})->name('detailThesis');
 
 Route::resource('lecturers', LecturerController::class);
 Route::resource('students', StudentController::class);
@@ -94,6 +97,7 @@ Route::get('/backend/prodi', [App\Http\Controllers\ProdiController::class, 'inde
 Route::get('/backend/room', [App\Http\Controllers\RoomController::class, 'index'])->name('backend.room');
 Route::get('/backend/student', [StudentController::class, 'index'])->name('backend.student');
 Route::get('/backend/thesis', [App\Http\Controllers\ThesisController::class, 'index'])->name('backend.thesis');
+Route::get('/backend/detailThesis', [App\Http\Controllers\DetailThesisController::class, 'index'])->name('backend.detailThesis');
 
 
 Route::middleware('auth')->group(function () {
@@ -143,4 +147,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/thesis/{id}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
     Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+Route::get('/detailThesis', [DetailThesisController::class, 'index']);
+Route::get('/formDetailThesis', [DetailThesisController::class, 'create']);
+Route::post('/detailThesis', [DetailThesisController::class, 'store'])->name('detailThesis.store');
+Route::get('/detailThesis/edit/{id}', [DetailThesisController::class, 'edit'])->name('detailThesis.edit');
+Route::put('/detailThesis/update/{id}', [DetailThesisController::class, 'update'])->name('detailThesis.update');
+Route::delete('/detailThesis/{id}', [DetailThesisController::class, 'destroy'])->name('detailThesis.destroy');
 });

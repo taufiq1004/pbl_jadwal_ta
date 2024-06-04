@@ -4,12 +4,12 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title fw-semibold mb-4">Data Tugas Akhir</h5>
+            <h5 class="card-title fw-semibold mb-4">Detail Thesis</h5>
             <div class="container-fluid">
                 <div class="card shadow mb-4">
                     <div>
-                        <a href="{{ url('/formThesis') }}" class="btn btn-primary btn-sm">
-                            <i class="fas fa-plus"></i> Add Data
+                        <a href="{{ url('/formDetailThesis') }}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i> Add Detail
                         </a>
                     </div>
                     <div class="card-body">
@@ -17,30 +17,27 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="table-bordered">
                                     <tr class="table-info">
-                                        <th>Id</th>
-                                        <th>Name Student</th>
-                                        <th>Judul</th>
-                                        <th>Tgl Pengajuan</th>
-                                        <th>File</th>
+                                        <th>ID</th>
+                                        <th>Nama Mahasiswa</th>
+                                        <th>Judul TA</th>
+                                        <th>Pembimbing 1</th>
+                                        <th>Pembimbing 2</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_thesis as $data)
+                                    @foreach ($data_detail_thesis as $detail)
                                     <tr>
-                                        <td>{{ $data->id_ta }}</td>
-                                        <td>{{ $data->name_student }}</td>
-                                        <td>{{ $data->judul }}</td>
-                                        <td>{{ $data->tgl_pengajuan }}</td>
-                                        <td>{{ $data->file_name }}</td>
+                                        <td>{{ $detail->id_detailta }}</td>
+                                        <td>{{ $detail->student_name }}</td>
+                                        <td>{{ $detail->thesis_title }}</td>
+                                        <td>{{ $detail->pembimbing1_name }}</td>
+                                        <td>{{ $detail->pembimbing2_name }}</td>
                                         <td>
-                                            <a href="{{ Storage::url($data->file) }}" class="btn btn-success" style="display:inline-block;" download>
-                                                <i class="fas fa-download"></i> Download
-                                            </a>                                           
-                                            <a href="{{ route('thesis.edit', ['id' => $data->id_ta]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('detailThesis.edit', $detail->id_detailta) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
-                                            <form action="{{ route('thesis.destroy', $data->id_ta) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('detailThesis.destroy', $detail->id_detailta) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
