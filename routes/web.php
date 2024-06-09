@@ -10,6 +10,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Models\Student;
 use App\Models\Thesis;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,6 +80,8 @@ Route::get('/detailthesis', function () {
 Route::resource('lecturers', LecturerController::class);
 Route::resource('students', StudentController::class);
 Route::resource('thesis', ThesisController::class);
+
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');

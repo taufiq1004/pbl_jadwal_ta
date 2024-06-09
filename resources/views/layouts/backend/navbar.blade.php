@@ -127,13 +127,21 @@
                         <i class="fa fa-bell me-1 text-primary"></i>
                         <span class="d-sm-inline d-none text-dark">Notifications</span>
                     </a>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <a href="#" class="nav-link font-weight-bold px-3">
-                        <i class="fas fa-sign-out-alt me-1 text-danger"></i>
-                        <span class="d-sm-inline d-none text-dark">Logout</span>
-                    </a>
-                </li>
+                </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <a href="{{ route('logout') }}" 
+                   onclick="event.preventDefault(); 
+                            document.getElementById('logout-form').submit();" 
+                   class="nav-link font-weight-bold px-3">
+                    <i class="fas fa-sign-out-alt me-1 text-danger"></i>
+                    <span class="d-sm-inline d-none text-dark">Logout</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+            
             </ul>
                      
           </div>
