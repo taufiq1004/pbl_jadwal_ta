@@ -7,6 +7,10 @@ use App\Http\Controllers\thesisController;
 use App\Models\Lecturer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\DetailSessionController;
+use App\Models\DetailSession;
+use App\Models\Sessions;
 use App\Models\Student;
 use App\Models\Thesis;
 use Illuminate\Support\Facades\Route;
@@ -71,11 +75,35 @@ Route::get('/thesis', function () {
     return view('backend.thesis');
 })->name('thesis');
 
+Route::get('/session', function () {
+    return view('backend.session');
+})->name('session');
 
+Route::get('/formSession', function () {
+    return view('backend.form.formSession');
+});
+
+Route::get('/formEditSession', function () {
+    return view('backend.form.formEditSession');
+});
+
+Route::get('/detailSession', function () {
+    return view('backend.detailSession');
+})->name('detailSession');
+
+Route::get('/formDetailSession', function () {
+    return view('backend.form.formDetailSession');
+});
+
+Route::get('/formEditDetailSession', function () {
+    return view('backend.form.formEditDetailSession');
+});
 
 Route::resource('lecturers', LecturerController::class);
 Route::resource('students', StudentController::class);
 Route::resource('thesis', ThesisController::class);
+Route::resource('session', SessionController::class);
+Route::resource('detailSession', DetailSessionController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
@@ -94,7 +122,8 @@ Route::get('/backend/prodi', [App\Http\Controllers\ProdiController::class, 'inde
 Route::get('/backend/room', [App\Http\Controllers\RoomController::class, 'index'])->name('backend.room');
 Route::get('/backend/student', [StudentController::class, 'index'])->name('backend.student');
 Route::get('/backend/thesis', [App\Http\Controllers\ThesisController::class, 'index'])->name('backend.thesis');
-
+Route::get('/backend/session', [App\Http\Controllers\SessionController::class, 'index'])->name('backend.session');
+Route::get('/backend/detailSession', [App\Http\Controllers\DetailSessionController::class, 'index'])->name('backend.detailSession');
 
 Route::middleware('auth')->group(function () {
     Route::get('/prodi', [ProdiController::class, 'index'])->name('backend.prodi');
@@ -143,4 +172,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/thesis/{id}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
     Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/formsession', [SessionController::class, 'create'])->name('formsession');
+    Route::post('/session/store', [SessionController::class, 'store'])->name('session.store');
+    Route::get('/session/{id}/edit', [SessionController::class, 'edit'])->name('session.edit');
+    Route::put('/session/update/{id}', [SessionController::class, 'update'])->name('session.update');
+    Route::delete('/session/delete/{id}', [SessionController::class, 'destroy'])->name('session.destroy');
+    Route::get('session/export_excel', [SessionController::class, 'export_excel']);
+    Route::post('session/import_excel', [SessionController::class, 'import_excel']);
+    Route::post('session/import_excel', [SessionController::class, 'import_excel'])->name('session.import_excel');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/formDetailSession', [DetailSessionController::class, 'create'])->name('formDetailSession');
+    Route::post('/detailSession/store', [DetailSessionController::class, 'store'])->name('detailSession.store');
+    Route::get('/detailSession/{id}/edit', [DetailSessionController::class, 'edit'])->name('detailSession.edit');
+    Route::put('/detailSession/update/{id}', [DetailSessionController::class, 'update'])->name('detailSession.update');
+    Route::delete('/detailSession/delete/{id}', [DetailSessionController::class, 'destroy'])->name('detailSession.destroy');
 });
