@@ -34,6 +34,7 @@
                                         <td>{{ $data->tgl_pengajuan }}</td>
                                         <td>{{ $data->file_name }}</td>
                                         <td>
+
                                             <a href="{{ Storage::url($data->file) }}" class="btn btn-success" style="display:inline-block;" download>
                                                 <i class="fas fa-download"></i> Download
                                             </a>                                           
@@ -44,7 +45,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                    <i class="fas fa-trash"></i> Delete
+                                                <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
                                         </td>
