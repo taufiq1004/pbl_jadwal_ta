@@ -1,5 +1,6 @@
 @extends('layouts.backend.template')
 
+
 @section('content')
 <div class="container-fluid">
     <div class="card">
@@ -49,7 +50,7 @@
                                         <td>{{ $data->gender }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>
-                                            <form action="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" method="GET" style="display: inline;">
+                                            {{-- <form action="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" method="GET" style="display: inline;">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-secondary">
@@ -60,6 +61,18 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form> --}}
+
+                                            <a href="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-edit"></i> Update
+                                            </a>
+                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>

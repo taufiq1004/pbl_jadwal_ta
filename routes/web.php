@@ -4,6 +4,7 @@ use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\thesisController;
+
 use App\Models\Lecturer;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
@@ -11,6 +12,11 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DetailSessionController;
 use App\Models\DetailSession;
 use App\Models\Sessions;
+use App\Http\Controllers\DetailThesisController;
+
+
+
+
 use App\Models\Student;
 use App\Models\Thesis;
 use Illuminate\Support\Facades\Route;
@@ -75,6 +81,7 @@ Route::get('/thesis', function () {
     return view('backend.thesis');
 })->name('thesis');
 
+
 Route::get('/session', function () {
     return view('backend.session');
 })->name('session');
@@ -99,11 +106,18 @@ Route::get('/formEditDetailSession', function () {
     return view('backend.form.formEditDetailSession');
 });
 
+Route::get('/detailthesis', function () {
+    return view('backend.detailThesis');
+})->name('detailThesis');
+
+
 Route::resource('lecturers', LecturerController::class);
 Route::resource('students', StudentController::class);
 Route::resource('thesis', ThesisController::class);
+
 Route::resource('session', SessionController::class);
 Route::resource('detailSession', DetailSessionController::class);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
@@ -122,8 +136,12 @@ Route::get('/backend/prodi', [App\Http\Controllers\ProdiController::class, 'inde
 Route::get('/backend/room', [App\Http\Controllers\RoomController::class, 'index'])->name('backend.room');
 Route::get('/backend/student', [StudentController::class, 'index'])->name('backend.student');
 Route::get('/backend/thesis', [App\Http\Controllers\ThesisController::class, 'index'])->name('backend.thesis');
+
 Route::get('/backend/session', [App\Http\Controllers\SessionController::class, 'index'])->name('backend.session');
 Route::get('/backend/detailSession', [App\Http\Controllers\DetailSessionController::class, 'index'])->name('backend.detailSession');
+
+Route::get('/backend/detailThesis', [App\Http\Controllers\DetailThesisController::class, 'index'])->name('backend.detailThesis');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/prodi', [ProdiController::class, 'index'])->name('backend.prodi');
@@ -175,6 +193,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/formsession', [SessionController::class, 'create'])->name('formsession');
     Route::post('/session/store', [SessionController::class, 'store'])->name('session.store');
     Route::get('/session/{id}/edit', [SessionController::class, 'edit'])->name('session.edit');
@@ -192,3 +211,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/detailSession/update/{id}', [DetailSessionController::class, 'update'])->name('detailSession.update');
     Route::delete('/detailSession/delete/{id}', [DetailSessionController::class, 'destroy'])->name('detailSession.destroy');
 });
+
+Route::get('/detailThesis', [DetailThesisController::class, 'index']);
+Route::get('/formDetailThesis', [DetailThesisController::class, 'create']);
+Route::post('/detailThesis', [DetailThesisController::class, 'store'])->name('detailThesis.store');
+Route::get('/detailThesis/edit/{id}', [DetailThesisController::class, 'edit'])->name('detailThesis.edit');
+Route::put('/detailThesis/update/{id}', [DetailThesisController::class, 'update'])->name('detailThesis.update');
+Route::delete('/detailThesis/{id}', [DetailThesisController::class, 'destroy'])->name('detailThesis.destroy');
+});
+

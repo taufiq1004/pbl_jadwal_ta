@@ -14,7 +14,10 @@ class ExportStudent implements FromCollection
     {
         //
         $data_student = DB::table('students')
-        ->orderBy('id_student') // Order by id_prodi from smallest to largest
+
+
+        ->orderBy('nim') // Order by id_prodi from smallest to largest
+
         ->get();
         return $data_student;
     }
