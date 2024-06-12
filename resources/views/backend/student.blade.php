@@ -34,9 +34,9 @@
                                     <tr class="table-info">
                                         <th>No</th>
                                         <th>NIM</th>
-                                        <th>Name</th>
+                                        <th>Nama Mahasiswa</th>
                                         <th>Program Study</th>
-                                        <th>Force</th>
+                                        <th>Angkatan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -49,8 +49,6 @@
                                         <td>{{ $data->prodi_name }}</td>
                                         <td>{{ $data->force }}</td>
                                         <td>
-
-
                                             <a href="{{ route('student.edit', $data->nim) }}" class="btn btn-secondary btn-sm">
 
                                                 <i class="fas fa-edit"></i> Update

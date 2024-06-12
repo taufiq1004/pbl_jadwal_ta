@@ -18,17 +18,17 @@ return new class extends Migration
             $table->date('tgl_pengajuan');
             $table->string('file');
             $table->string('file_name');
-            // $table->string('nidn_supervisor');
-            // $table->string('nidn_examiner');
+            $table->string('pembimbing1');
+            $table->string('pembimbing2');
            
         });
         Schema::table('thesis', function (Blueprint $table) {
             $table->foreign('nim_student')->references('nim')->on('students')
                     ->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreign('nidn_supervisor')->references('nidn')->on('supervisors')
-            //         ->onUpdate('cascade')->onDelete('cascade');
-            // $table->foreign('nidn_examiner')->references('nidn')->on('examiners')
-            //         ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('pembimbing1')->references('nidn')->on('lecturers')
+                     ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('pembimbing2')->references('nidn')->on('lecturers')
+                    ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

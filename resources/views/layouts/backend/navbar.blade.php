@@ -83,7 +83,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('backend.validasiTa') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                 </div>
@@ -100,6 +100,14 @@
                   <span class="nav-link-text ms-1">Rooms</span>
               </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.sesi') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-clock text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Sesi</span>
+            </a>
+        </li>        
           <li class="nav-item">
               <a class="nav-link" href="#">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -151,13 +159,21 @@
                         <i class="fa fa-bell me-1 text-primary"></i>
                         <span class="d-sm-inline d-none text-dark">Notifications</span>
                     </a>
-                </li>
-                <li class="nav-item d-flex align-items-center">
-                    <a href="#" class="nav-link font-weight-bold px-3">
-                        <i class="fas fa-sign-out-alt me-1 text-danger"></i>
-                        <span class="d-sm-inline d-none text-dark">Logout</span>
-                    </a>
-                </li>
+                </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <a href="{{ route('logout') }}" 
+                   onclick="event.preventDefault(); 
+                            document.getElementById('logout-form').submit();" 
+                   class="nav-link font-weight-bold px-3">
+                    <i class="fas fa-sign-out-alt me-1 text-danger"></i>
+                    <span class="d-sm-inline d-none text-dark">Logout</span>
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+            </li>
+            
             </ul>
             
 

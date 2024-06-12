@@ -11,8 +11,7 @@ class Room extends Model
     
     protected $fillable = [
         'id_room',
-        'no_room',                                                      
-        'times',                                                      
+        'no_room',                                                                                                           
         // Add any other attributes that you want to be mass assignable
     ];
 

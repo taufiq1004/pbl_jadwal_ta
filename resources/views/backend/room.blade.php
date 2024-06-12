@@ -21,7 +21,6 @@
                                         <tr class="table-info">
                                             <th>ID</th>
                                             <th>No Room</th>
-                                            <th>Times</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -45,20 +44,17 @@
                                         <tr class="table-Light">
                                             <td>{{$data->id_room}}</td>
                                             <td>{{$data->no_room}}</td>
-                                            <td>{{$data->times}}</td> 
                                             <td>
                                                 {{-- <a data-bs-toggle="modal" data-bs-target="#detail{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-three-dots-vertical"></i></a> --}}
-                                                <form action="{{ route('room.edit', ['id' => $data->id_room]) }}" method="GET" style="display: inline;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-secondary">
-                                                        <i class="fas fa-edit"></i> Update
-                                                    </button>
-                                                </form>
-                                                <form action="{{ route('room.destroy', ['id' => $data->id_room]) }}" method="POST" style="display: inline;">
+                                                <a href="{{ route('room.edit', $data->id_room) }}" class="btn btn-secondary btn-sm">
+
+                                                    <i class="fas fa-edit"></i> Update
+                                                </a>
+                                                <form action="{{ route('room.destroy', $data->id_room) }}" method="POST" style="display:inline-block;">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
+    
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </button>
                                                 </form>
