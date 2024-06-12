@@ -19,10 +19,6 @@
                                     <label for="no_room" class="form-label">No Room</label>
                                     <input type="text" class="form-control" id="no_room" name="no_room" value="{{ $room->no_room }}" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="times" class="form-label">Times</label>
-                                    <input type="text" class="form-control" id="times" name="times" value="{{ $room->times }}" required>
-                                </div>
                                 <button type="submit" class="btn btn-primary">Update</button>
                                 <a href="{{ route('backend.room') }}" class="btn btn-secondary">Cancel</a>
                             </form>

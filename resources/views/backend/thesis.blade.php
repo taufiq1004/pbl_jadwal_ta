@@ -22,6 +22,8 @@
                                         <th>Judul</th>
                                         <th>Tgl Pengajuan</th>
                                         <th>File</th>
+                                        <th>Pembimbing1</th>
+                                        <th>Pembimbing2</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -29,11 +31,14 @@
                                     @foreach ($data_thesis as $data)
                                     <tr>
                                         <td>{{ $data->id_ta }}</td>
-                                        <td>{{ $data->name_student }}</td>
+                                        <td>{{ $data->student_name }}</td>
                                         <td>{{ $data->judul }}</td>
                                         <td>{{ $data->tgl_pengajuan }}</td>
                                         <td>{{ $data->file_name }}</td>
+                                        <td>{{ $data->pembimbing1_name }}</td>
+                                        <td>{{ $data->pembimbing2_name }}</td>
                                         <td>
+
                                             <a href="{{ Storage::url($data->file) }}" class="btn btn-success" style="display:inline-block;" download>
                                                 <i class="fas fa-download"></i> Download
                                             </a>                                           
@@ -44,7 +49,7 @@
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                    <i class="fas fa-trash"></i> Delete
+                                                <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
                                         </td>

@@ -16,10 +16,12 @@ class ImportStudent implements ToCollection
         //
         foreach ($collection as $row) {
             Student::create([
+
                 'nim' => $row[0],
                 'name' => $row[1],
                 'prodi_id' => $row[2],
                 'force' => $row[3],
+
             ]);
         }
     }

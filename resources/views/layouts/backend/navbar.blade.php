@@ -48,6 +48,25 @@
             </a>
         </li>
         <li class="nav-item">
+
+            <a class="nav-link" href="{{ route('backend.session') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-chalkboard-teacher text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Sidang TA</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.detailSession') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Detail Sidang TA</span>
+            </a>
+        </li>
+      
+
+
             <a class="nav-link" href="{{ route('backend.thesis') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="fas fa-book text-warning text-sm opacity-10"></i> <!-- Menggunakan ikon buku untuk Thesis -->
@@ -64,7 +83,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('backend.validasiTa') }}">
                 <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                     <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                 </div>
@@ -72,6 +91,7 @@
             </a>
         </li>
        
+
           <li class="nav-item">
               <a class="nav-link" href="{{ route('backend.room') }}">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -80,6 +100,14 @@
                   <span class="nav-link-text ms-1">Rooms</span>
               </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('backend.sesi') }}">
+                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                    <i class="fas fa-clock text-warning text-sm opacity-10"></i>
+                </div>
+                <span class="nav-link-text ms-1">Sesi</span>
+            </a>
+        </li>        
           <li class="nav-item">
               <a class="nav-link" href="#">
                   <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
@@ -96,6 +124,8 @@
                   <span class="nav-link-text ms-1">Pendaftaran TA</span>
               </a>
           </li>
+
+
       </ul>
   </div>
 </aside>
@@ -108,7 +138,9 @@
           <nav aria-label="breadcrumb">
               <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                   <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="#">Halaman</a></li>
+
                   
+
               </ol>
               <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
           </nav>
@@ -143,7 +175,8 @@
             </li>
             
             </ul>
-                     
+            
+
           </div>
       </div>
   </nav>

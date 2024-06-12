@@ -34,9 +34,9 @@
                                     <tr class="table-info">
                                         <th>No</th>
                                         <th>NIM</th>
-                                        <th>Name</th>
+                                        <th>Nama Mahasiswa</th>
                                         <th>Program Study</th>
-                                        <th>Force</th>
+                                        <th>Angkatan</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -50,15 +50,18 @@
                                         <td>{{ $data->force }}</td>
                                         <td>
                                             <a href="{{ route('student.edit', $data->nim) }}" class="btn btn-secondary btn-sm">
+
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
                                             <form action="{{ route('student.destroy', $data->nim) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
+
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
+
 
                                         </td>
                                     </tr>

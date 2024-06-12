@@ -4,13 +4,13 @@
         <div class="card">
             <div class="card-body">
                 <!-- Page Heading -->
-                <h5 class="card-title fw-semibold mb-4">Data Room</h5>
+                <h5 class="card-title fw-semibold mb-4">Detail Data Session</h5>
                 <div class="container-fluid">
                     <!-- DataDosen -->
                     <div class="card shadow mb-4">
                         <div>
                             <!-- Tambahkan elemen lain sesuai kebutuhan -->
-                            <a href="{{ url('/formRoom') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ url('/formDetailSession') }}" class="btn btn-primary btn-sm">
                                 <i class="fas fa-plus"></i> Add Data
                             </a>
                         </div>
@@ -20,7 +20,10 @@
                                     <thead>
                                         <tr class="table-info">
                                             <th>ID</th>
-                                            <th>No Room</th>
+                                            <th>Nama </th>
+                                            <th>Judul TA</th>
+                                            <th>Nilai Akhir</th>
+                                            <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -39,27 +42,32 @@
                                             {{-- <th>Aksi</th> --}}
                                         {{-- </tr> --}}
                                     </tfoot>
-                                    <tbody>                                        
-                                        @foreach ($data_room as $data)
+                                    <tbody>
+                                        @foreach ($DetailSession as $data)
                                         <tr class="table-Light">
-                                            <td>{{$data->id_room}}</td>
-                                            <td>{{$data->no_room}}</td>
+                                            <td>{{$data->id_detail}}</td>
+                                            <td>{{$data->student_name}}</td>
+                                            <td>{{$data->thesis_title}}</td>
+                                            <td>{{$data->final_score}}</td>
+                                            <td>{{$data->status}}</td>
                                             <td>
                                                 {{-- <a data-bs-toggle="modal" data-bs-target="#detail{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-three-dots-vertical"></i></a> --}}
-                                                <a href="{{ route('room.edit', $data->id_room) }}" class="btn btn-secondary btn-sm">
-
-                                                    <i class="fas fa-edit"></i> Update
-                                                </a>
-                                                <form action="{{ route('room.destroy', $data->id_room) }}" method="POST" style="display:inline-block;">
+                                                <form action="{{ route('detailSession.edit', ['id' => $data->id_detail]) }}" method="GET" style="display: inline;">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <button type="submit" class="btn btn-secondary">
+                                                        <i class="fas fa-edit"></i> Update
+                                                    </button>
+                                                </form>
+                                                <form action="{{ route('detailSession.destroy', ['id' => $data->id_detail]) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
-    
-                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
                                                         <i class="fas fa-trash"></i> Delete
                                                     </button>
                                                 </form>
-                                                
-                                                
+
+
                                             </td>
                                         </tr>
 

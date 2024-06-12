@@ -29,7 +29,6 @@ class RoomController extends Controller
         $request->validate([
             'id_room' => 'required',
             'no_room' => 'required',
-            'times' => 'required',
         ]);
 
         Room::create($request->all());
@@ -51,11 +50,11 @@ class RoomController extends Controller
         $request->validate([
 
             'no_room' => 'required',
-            'times' => 'required',
+
         ]);
         $data=[
             'no_room'=> $request->no_room,
-            'times'=> $request->times,
+            
         ];
 
         //$prodi = Prodi::find($id);

@@ -15,13 +15,11 @@ return new class extends Migration
             $table->id('id_session');
             $table->string('nim_student');
             $table->unsignedBigInteger('ta_id');
-            $table->string('pembimbing1');
-            $table->string('pembimbing2');
-            $table->string('ketua_sidang');
+            $table->unsignedBigInteger('ketua_sidang');
             $table->string('sekretaris');
-            $table->string('penguji1');
-            $table->string('penguji2');
+            $table->string('anggota');
             $table->unsignedBigInteger('no_room');
+            $table->string('sesi');
             $table->date('date_session');
            // $table->timestamps();
         });
@@ -30,19 +28,15 @@ return new class extends Migration
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ta_id')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('pembimbing1')->references('nidn')->on('lecturers')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('pembimbing2')->references('nidn')->on('lecturers')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('ketua_sidang')->references('nidn')->on('lecturers')
+            $table->foreign('ketua_sidang')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('sekretaris')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('penguji1')->references('nidn')->on('lecturers')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('penguji2')->references('nidn')->on('lecturers')
+            $table->foreign('anggota')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('no_room')->references('id_room')->on('rooms')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('sesi')->references('sesi')->on('sesi')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
     }

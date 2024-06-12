@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rooms', function (Blueprint $table) {
-            $table->id('id_room');
-            $table->string('no_room');
-          
+        Schema::create('sesi', function (Blueprint $table) {
+            $table->string('sesi')->primary();
+         
         });
     }
 
@@ -23,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('sesi');
     }
 };
