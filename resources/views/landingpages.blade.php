@@ -31,7 +31,6 @@
                 <!-- Hapus komen-nya jika pengen memakai logo  -->
                 {{-- <<img src="assets/img/logo.png" alt=""> --}}
                 <h1>SIPSITA</h1>
-                <span>.</span>
             </a>
             <!-- Navbar Menu -->
             <nav id="navmenu" class="navmenu">
@@ -47,7 +46,8 @@
             <!-- End Navbar Menu -->
             <div class="btns-group">
                 <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
-                <a class="btn btn-outline-secondary btn-addon" href="{{ route('register') }}">Register</a>
+                {{-- <a class="btn-getstarted" href="{{ route('register') }}">Register</a> --}}
+                <a class="btn-getstarted" href="{{ route('register') }}" style="background-color: orange; color: white;">Register</a>
             </div>
         </div>
     </header>
