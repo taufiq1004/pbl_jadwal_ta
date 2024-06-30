@@ -158,8 +158,9 @@
                                         @endif
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </div>

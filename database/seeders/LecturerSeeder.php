@@ -24,6 +24,10 @@ class LecturerSeeder extends Seeder
             ['0001097802','ERVAN ASRI, S.Kom, M.Kom', 'Laki-laki', 'ervan@pnp.ac.id'],
             ['0021078601','FAZROL ROZI, M.Sc.', 'Laki-laki','fazrol@pnp.ac.id'],
             ['1029058502','FITRI NOVA, M.T, S.ST', 'Perempuan','fitrinova85@gmail.com'],
+            ['0020028804', 'Andre Febrian Kasmar, S.T., M.T.', 'Laki-laki','andrefebrian@pnp.ac.id'],
+            ['0029068102','MERI AZMI, S.T, M.Cs',  'Perempuan','meriazmi@gmail.com'],
+            ['0010088805', 'TAUFIK GUSMAN, S.S.T, M.Ds', 'Laki-laki', 'taufikgusman@gmail.com'],
+
         //     [11,'Ir. HANRIYAWAN ADNAN MOODUTO, M.Kom.', '0010056606', '196605101994031003', 'Laki-laki', 7, 19, 'mooduto@pnp.ac.id', '12345678', '', '1'],
         //     [12,'HENDRICK, S.T, M.T.,Ph.D', '0002127705', '197712022006041000', 'Laki-laki', 4, 7, 'hendrickpnp77@gmail.com', '12345678', '', '1'],
         //     [13,'HIDRA AMNUR, S.E., S.Kom, M.Kom', '0015048209', '198204152012121002', 'Laki-laki', 7, 18, 'hidra@pnp.ac.id', '12345678', '', '1'],
@@ -36,7 +40,6 @@ class LecturerSeeder extends Seeder
         //     [20,'RIKA IDMAYANTI, S.T, M.Kom', '0022017806', '197801222009122002', 'Perempuan', 7, 20, 'rikaidmayanti@pnp.ac.id', '12345678', '', '1'],
         //     [21,'RITA AFYENNIS.Kom, M.Kom', '0018077099', '197007182008012010', 'Perempuan', 7, 18, 'ritaafyenni@pnp.ac.id', '12345678', '', '1'],
         //     [22,'RONAL HADI S.T, M.Kom', '0029017603', '197601292002121001', 'Laki-laki', 7, 19, 'ronalhadi@pnp.ac.id', '12345678', '', '1'],
-        //     [23,'TAUFIK GUSMAN, S.S.T, M.Ds', '0010088805', ' 19880810 201903 1 012', 'Laki-laki', 7, 18, 'taufikgusman@gmail.com', '12345678', '', '1'],
         //     [24,'YANCE SONATHA, S.Kom, M.T', '0029128003', '198012292006042001', 'Perempuan', 7, 18, 'sonatha.yance@gmail.com', '12345678', '', '1'],
         //     [25,'Dr. Ir. YUHEFIZAR, S.Kom., M.Kom', '0013017604', '197601132006041002', 'Laki-laki', 7, 18, 'yuhefizar@pnp.ac.id', '12345678', '', '1'],
         //     [26,'YULHERNIWATI, S.Kom, M.T', '0019077609', '197607192008012017', 'Perempuan', 7, 20, 'yulherniwati@pnp.ac.id', '12345678', '', '1'],

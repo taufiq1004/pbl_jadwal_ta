@@ -10,15 +10,19 @@ class RoomController extends Controller
 {
     //
     public function index()
-    {
-        $data_room = DB::table('rooms')
-            ->orderBy('id_room') // Order by id_prodi from smallest to largest
-            ->get();
+ {
+    $data_room = DB::table('rooms')
+    ->leftJoin('sessions', 'rooms.id_room', '=', 'sessions.no_room')
+    ->select('rooms.id_room', 'rooms.no_room', 'rooms.sesi', 
+        DB::raw('IF(COUNT(sessions.id_session) = 0, "Tersedia", "Tidak Tersedia") as is_available'))
+    ->groupBy('rooms.id_room', 'rooms.no_room', 'rooms.sesi')
+    ->get();
+
+    return view('backend.room', compact('data_room'));
+}
 
 
-        return view('backend.room', compact('data_room'));
-    }
-
+       
     public function create()
     {
         return view('backend.room.create');
@@ -29,6 +33,7 @@ class RoomController extends Controller
         $request->validate([
             'id_room' => 'required',
             'no_room' => 'required',
+            'sesi' => 'required',
         ]);
 
         Room::create($request->all());
@@ -50,10 +55,12 @@ class RoomController extends Controller
         $request->validate([
 
             'no_room' => 'required',
+            'sesi' => 'required',
 
         ]);
         $data=[
             'no_room'=> $request->no_room,
+            'sesi'=> $request->sesi,
             
         ];
 

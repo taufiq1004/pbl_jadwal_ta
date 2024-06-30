@@ -18,6 +18,10 @@
                                     <label for="no_room" class="form-label">No Room</label>
                                     <input type="text" class="form-control" id="no_room" name="no_room" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="sesi" class="form-label">Sesi</label>
+                                    <input type="text" class="form-control" id="sesi" name="sesi" required>
+                                </div>
                                 <!-- Add other fields if necessary -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 <a href="{{ route('backend.room') }}" class="btn btn-secondary">Cancel</a>

@@ -123,4 +123,22 @@ class ThesisController extends Controller
         DB::table('thesis')->where('id_ta', $id)->delete();
         return redirect('/thesis')->with('success', 'Thesis deleted successfully.');
     }
+
+    public function show($id)
+    {
+        $thesis = Thesis::where('id_ta', $id)
+            ->join('students', 'thesis.nim_student', '=', 'students.nim')
+            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.nidn')
+            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.nidn')
+            ->select(
+                'thesis.*',
+                'students.name as student_name',
+                'pembimbing1.name as pembimbing1_name',
+                'pembimbing2.name as pembimbing2_name'
+            )
+            ->first();
+
+        return view('backend.form.detailThesis', compact('thesis'));
+    }
+
 }
