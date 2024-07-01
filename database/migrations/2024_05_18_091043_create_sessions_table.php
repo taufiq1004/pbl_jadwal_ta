@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_session');
             $table->string('nim_student');
             $table->unsignedBigInteger('ta_id');
-            $table->unsignedBigInteger('ketua_sidang');
+            $table->string('ketua_sidang');
             $table->string('sekretaris');
             $table->string('anggota');
             $table->unsignedBigInteger('no_room');
@@ -28,7 +28,7 @@ return new class extends Migration
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ta_id')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('ketua_sidang')->references('id_ta')->on('thesis')
+            $table->foreign('ketua_sidang')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('sekretaris')->references('nidn')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');

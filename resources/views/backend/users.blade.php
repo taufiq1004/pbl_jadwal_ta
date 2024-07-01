@@ -1,22 +1,21 @@
 @extends('layouts.backend.template')
 
-
 @section('content')
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
             <!-- Page Heading -->
-            <h5 class="card-title fw-semibold mb-4">Data Lecturer</h5>
+            <h5 class="card-title fw-semibold mb-4">Data Users</h5>
             <div class="container-fluid">
-                <!-- DataDosen -->
+                <!-- Data Users -->
                 <div class="card shadow mb-4">
                     <div>
-                        <a href="{{ url('/formLecturer') }}" class="btn btn-primary btn-sm">
+                        <a href="{{ url('/formUser') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Add Data
                         </a>
-                        <a href="{{ url('lecturer/export_excel') }}" class="btn btn-success btn-sm">
+                        <a href="{{ route('users.export_excel') }}" class="btn btn-success btn-sm">
                             <i class="fas fa-file-excel"></i> Export
-                        </a>
+                        </a>                                              
                         <!-- Button untuk membuka modal import -->
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importModal">
                             <i class="fas fa-cloud-upload-alt"></i> Import
@@ -34,47 +33,33 @@
                                 <thead class="table-bordered">
                                     <tr class="table-info">
                                         <th>No</th>
-                                        <th>Nidn</th>
                                         <th>Name</th>
-                                        <th>Jenis Kelamin</th>
+                                        <th>Role</th>
                                         <th>Email</th>
+                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_lecturer as $index => $data)
+                                    @foreach ($data_user as $index => $data)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $data->nidn }}</td>
                                         <td>{{ $data->name }}</td>
-                                        <td>{{ $data->gender }}</td>
+                                        <td>{{ $data->role }}</td>
                                         <td>{{ $data->email }}</td>
+                                        <td>{{ $data->password }}</td>
+                                       
                                         <td>
-                                            {{-- <form action="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" method="GET" style="display: inline;">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit" class="btn btn-secondary">
-                                                    <i class="fas fa-edit"></i> Update
-                                                </button>
-                                            </form>
-                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </form> --}}
-                                            <a href="{{ route('lecturer.show', ['id' => $data->nidn]) }}" class="btn btn-info btn-sm">
+                                            <a href="{{ route('users.show', ['id' => $data->id]) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Detail
                                             </a>
-                                            <a href="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('users.edit', ['id' => $data->id]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
-                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('users.destroy', $data->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
-
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form>
@@ -102,7 +87,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('lecturer.import_excel') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('users.import_excel') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="file">Choose Excel File</label>

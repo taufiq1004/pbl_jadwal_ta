@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id('id_room');
             $table->string('no_room');
+            $table->string('sesi');
           
         });
     }

@@ -1,8 +1,5 @@
 @extends('layouts.backend.template')
 @section('content')
-    <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
                 <!-- Page Heading -->
                 <h5 class="card-title fw-semibold mb-4">Data Session</h5>
                 <div class="container-fluid">
@@ -22,13 +19,11 @@
                                             <th>ID</th>
                                             <th>NIM </th>
                                             <th>Judul TA</th>
-                                            <th>Pembimbing 1</th>
-                                            <th>Pembimbing 2 </th>
+                                            <th>Action</th>
                                             <th>Ketua Sidang</th>
                                             <th>Sekretaris</th>
-                                            <th>Penguji 1</th>
-                                            <th>Penguji 2 </th>
-                                            <th>No Ruangan</th>
+                                            <th>Anggota</th>
+                                            <th>Ruangan-Sesi</th>
                                             <th>Tanggal Sidang</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -49,19 +44,21 @@
                                         {{-- </tr> --}}
                                     </tfoot>
                                     <tbody>
-                                        @foreach ($data_session as $data)
+                                        @foreach ($data_sessions as $data)
                                         <tr class="table-Light">
-                                            <td>{{$data->id_session}}</td>
-                                            <td>{{$data->student_name}}</td>
-                                            <td>{{$data->thesis_title}}</td>
-                                            <td>{{$data->pembimbing1_name}}</td>
-                                            <td>{{$data->pembimbing2_name}}</td>
-                                            <td>{{$data->ketua_sidang_name}}</td>
-                                            <td>{{$data->sekretaris_name}}</td>
-                                            <td>{{$data->penguji1_name}}</td>
-                                            <td>{{$data->penguji2_name}}</td>
-                                            <td>{{$data->no_room}}</td>
-                                            <td>{{$data->date_session}}</td>
+                                            <td>{{ $data->id_session }}</td>
+                                            <td>{{ $data->student_name }}</td>
+                                            <td>{{ $data->judul_ta }}</td>
+                                            <td>
+                                                <a href="{{ route('penilaian.create', $data->id_session) }}" class="btn btn-primary">
+                                                    <i class="fas fa-edit"></i> Nilai
+                                                </a>
+                                            </td>
+                                            <td>{{ $data->ketua_name }}</td>
+                                            <td>{{ $data->sekretaris_name }}</td>
+                                            <td>{{ $data->anggota_name }}</td>
+                                            <td>{{ $data->no_room }} - sesi {{ $data->sesi }}</td>
+                                            <td>{{ $data->date_session }}</td>
                                             <td>
                                                 {{-- <a data-bs-toggle="modal" data-bs-target="#detail{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-three-dots-vertical"></i></a> --}}
                                                 <form action="{{ route('session.edit', ['id' => $data->id_session]) }}" method="GET" style="display: inline;">
@@ -90,9 +87,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+   
 
 {{-- <!-- Modal untuk import -->--}}
 <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">

@@ -153,7 +153,9 @@
                                     <div class="custom-control custom-checkbox small">
                                         <input type="checkbox" class="custom-control-input" id="customCheck" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="custom-control-label" for="customCheck">Remember Me</label>
+
                                     </div>
+                                    
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block btn-login">
                                     Login

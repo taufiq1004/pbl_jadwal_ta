@@ -69,6 +69,11 @@ class LecturerController extends Controller
         DB::table ('lecturers')->where('nidn',$id)->delete();
         return redirect('/lecturers')->with('success', 'Lecturer deleted successfully.');
     }
+    public function show($id)
+{
+    $lecturer = Lecturer::where('nidn', $id)->first();
+    return view('backend.form.detailLecturer', compact('lecturer'));
+}
 
     function export_excel(){
         return Excel ::download(new ExportDosen,"Lecture.xlsx");

@@ -4,8 +4,9 @@ use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\thesisController;
-use App\Http\Controllers\SesiController;
 use App\Http\Controllers\ValidasiTaController;
+use App\Http\Controllers\SesiController;
+use App\Http\Controllers\PenilaianController;
 
 use App\Models\Lecturer;
 use App\Http\Controllers\ProfileController;
@@ -15,6 +16,8 @@ use App\Http\Controllers\DetailSessionController;
 use App\Models\DetailSession;
 use App\Models\Sessions;
 use App\Http\Controllers\DetailThesisController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Mail;
 
 
 
@@ -22,6 +25,7 @@ use App\Http\Controllers\DetailThesisController;
 use App\Models\Student;
 use App\Models\Thesis;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Models\Penilaian;
 use App\Models\Sesi;
 use App\Models\ValidasiTa;
 use Illuminate\Support\Facades\Route;
@@ -127,6 +131,42 @@ Route::get('/formEditSesi', function () {
     return view('backend.form.formEditSesi');
 });
 
+Route::get('/users', function () {
+    return view('backend.users');
+})->name('users');
+
+Route::get('/formUser', function () {
+    return view('backend.form.formUser');
+});
+Route::get('/register', function () {
+    return view('register');
+})->name('register');
+
+Route::get('/penilaian', function () {
+    return view('backend.penilaian');
+})->name('penilaian');
+
+Route::get('/formPenilaian', function () {
+    return view('backend.form.formPenilaian');
+});
+
+Route::get('/validasiTA', function () {
+    return view('backend.validasiTa');
+})->name('validasiTA');
+
+Route::get('/formValidasiTa', function () {
+    return view('backend.form.formValidasiTA');
+});
+
+Route::get('/test-email', function () {
+    Mail::raw('This is a test email', function ($message) {
+        $message->to('test@example.com')
+                ->subject('Test Email');
+    });
+
+    return 'Test email sent';
+});
+
 
 
 Route::resource('lecturers', LecturerController::class);
@@ -135,9 +175,15 @@ Route::resource('thesis', ThesisController::class);
 Route::resource('session', SessionController::class);
 Route::resource('detailSession', DetailSessionController::class);
 Route::resource('sesi', SesiController::class);
+Route::resource('users', UserController::class);
+Route::resource('penilaian', PenilaianController::class);
+Route::resource('validasiTa', ValidasiTaController::class);
 
 
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+Route::get('/api/available-rooms', [App\Http\Controllers\SessionController::class, 'getAvailableRooms']);
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
@@ -160,6 +206,8 @@ Route::get('/backend/session', [App\Http\Controllers\SessionController::class, '
 Route::get('/backend/detailSession', [App\Http\Controllers\DetailSessionController::class, 'index'])->name('backend.detailSession');
 Route::get('/backend/detailThesis', [App\Http\Controllers\DetailThesisController::class, 'index'])->name('backend.detailThesis');
 Route::get('/backend/sesi', [App\Http\Controllers\SesiController::class, 'index'])->name('backend.sesi');
+Route::get('/backend/users', [App\Http\Controllers\UserController::class, 'index'])->name('backend.users');
+Route::get('/backend/penilaian', [App\Http\Controllers\PenilaianController::class, 'index'])->name('backend.penilaian');
 
 
 Route::middleware('auth')->group(function () {
@@ -181,6 +229,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/lecturer/edit/{id}', [LecturerController::class, 'edit'])->name('lecturer.edit');
     Route::put('/lecturer/update/{id}', [LecturerController::class, 'update'])->name('lecturer.update');
     Route::delete('/lecturer/{id}', [LecturerController::class, 'destroy'])->name('lecturer.destroy');
+    Route::get('/lecturers/{id}', [LecturerController::class, 'show'])->name('lecturer.show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -209,6 +258,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/thesis/{id}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
     Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
+    Route::get('/thesis/{id}', [ThesisController::class, 'show'])->name('thesis.show');
 });
 
 Route::middleware('auth')->group(function () {
@@ -221,6 +271,10 @@ Route::middleware('auth')->group(function () {
     Route::get('session/export_excel', [SessionController::class, 'export_excel']);
     Route::post('session/import_excel', [SessionController::class, 'import_excel']);
     Route::post('session/import_excel', [SessionController::class, 'import_excel'])->name('session.import_excel');
+    // routes/web.php
+    Route::get('/session/get-pembimbing', [SessionController::class, 'getPembimbing'])->name('session.getPembimbing');
+    
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -248,4 +302,36 @@ Route::middleware('auth')->group(function () {
     Route::put('/sesi/update/{id}', [SesiController::class, 'update'])->name('sesi.update');
     Route::delete('/sesi/{id}', [SesiController::class, 'destroy'])->name('sesi.destroy');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::get('/users/export_excel', [UserController::class, 'export_excel'])->name('users.export_excel');
+    Route::post('/users/import_excel', [UserController::class, 'import_excel'])->name('users.import_excel');
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+});
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('backend.penilaian');
+    Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
+    Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('penilaian.store');
+    Route::get('/penilaian/edit/{id}', [PenilaianController::class, 'edit'])->name('penilaian.edit');
+    Route::put('/penilaian/update/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
+    Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/validasiTa', [ValidasiTaController::class, 'index'])->name('backend.validasiTa');
+    Route::get('/validasiTa/create', [ValidasiTaController::class, 'create'])->name('backend.form.formValidasiTa');
+    Route::post('/validasiTa/store', [ValidasiTaController::class, 'store'])->name('backend.form.formValidasiTa.store');
+    Route::get('/validasiTa/edit/{id}', [ValidasiTaController::class, 'edit'])->name('backend.form.formEditValidasiTa');
+    Route::put('/validasiTa/update/{id}', [ValidasiTaController::class, 'update'])->name('backend.form.formEditValidasiTa.update');
+    Route::delete('/validasiTa/{id}', [ValidasiTaController::class, 'destroy'])->name('backend.form.formEditValidasiTa.destroy');
+});
+
 

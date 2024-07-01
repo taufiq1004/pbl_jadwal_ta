@@ -41,7 +41,10 @@
 
                                             <a href="{{ Storage::url($data->file) }}" class="btn btn-success" style="display:inline-block;" download>
                                                 <i class="fas fa-download"></i> Download
-                                            </a>                                           
+                                            </a>            
+                                            <a href="{{ route('thesis.show', ['id' => $data->id_ta]) }}" class="btn btn-info btn-sm">
+                                                <i class="fas fa-eye"></i> Detail
+                                            </a>                               
                                             <a href="{{ route('thesis.edit', ['id' => $data->id_ta]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
