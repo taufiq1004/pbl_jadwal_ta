@@ -12,22 +12,22 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('thesis', function (Blueprint $table) {
-            $table->id('id_ta');
-            $table->string('nim_student');
+            $table->bigIncrements('id_ta');
+            $table->bigInteger('student_id')->unsigned();
             $table->string('judul');
             $table->date('tgl_pengajuan');
             $table->string('file');
             $table->string('file_name');
-            $table->string('pembimbing1');
-            $table->string('pembimbing2');
+            $table->bigInteger('pembimbing1')->unsigned();
+            $table->bigInteger('pembimbing2')->unsigned();
            
         });
         Schema::table('thesis', function (Blueprint $table) {
-            $table->foreign('nim_student')->references('nim')->on('students')
+            $table->foreign('student_id')->references('id_student')->on('students')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('pembimbing1')->references('nidn')->on('lecturers')
+            $table->foreign('pembimbing1')->references('id_lecturer')->on('lecturers')
                      ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('pembimbing2')->references('nidn')->on('lecturers')
+            $table->foreign('pembimbing2')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
     }

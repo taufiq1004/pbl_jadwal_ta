@@ -8,7 +8,7 @@ class Lecturer extends Model
 {
     use HasFactory;
     protected $fillable = [
-         'nidn', 'name', 'gender', 'email'
+         'id_lecturer','nidn', 'name', 'gender', 'email'
     ];
     protected $table = 'lecturers';
 

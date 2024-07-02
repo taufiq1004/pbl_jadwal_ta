@@ -12,6 +12,10 @@
                     <div class="card-body">
                         <table class="table table-bordered">
                             <tr>
+                                <th>ID</th>
+                                <td>{{ $lecturer->id_lecturer }}</td>
+                            </tr>
+                            <tr>
                                 <th>NIDN</th>
                                 <td>{{ $lecturer->nidn }}</td>
                             </tr>

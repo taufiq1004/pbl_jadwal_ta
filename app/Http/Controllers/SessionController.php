@@ -14,11 +14,11 @@ class SessionController extends Controller
     public function index()
     {
         $data_sessions = DB::table('sessions')
-            ->join('students', 'sessions.nim_student', '=', 'students.nim')
+            ->join('students', 'sessions.student_id', '=', 'students.id_student')
             ->join('thesis as judul_ta', 'sessions.ta_id', '=', 'judul_ta.id_ta')
-            ->join('lecturers as ketua_sidang', 'sessions.ketua_sidang', '=', 'ketua_sidang.nidn')
-            ->join('lecturers as sekretaris', 'sessions.sekretaris', '=', 'sekretaris.nidn')
-            ->join('lecturers as anggota', 'sessions.anggota', '=', 'anggota.nidn')
+            ->join('lecturers as ketua_sidang', 'sessions.ketua_sidang', '=', 'ketua_sidang.id_lecturer')
+            ->join('lecturers as sekretaris', 'sessions.sekretaris', '=', 'sekretaris.id_lecturer')
+            ->join('lecturers as anggota', 'sessions.anggota', '=', 'anggota.id_lecturer')
             ->join('rooms', 'sessions.no_room', '=', 'rooms.id_room')
             ->select(
                 'sessions.*',
@@ -48,11 +48,11 @@ class SessionController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'nim_student' => 'required|exists:students,nim',
+        'student_id' => 'required|exists:students,id_student',
         'ta_id' => 'required|exists:thesis,id_ta',
-        'ketua_sidang' => 'required|exists:lecturers,nidn',
-        'sekretaris' => 'required|exists:lecturers,nidn',
-        'anggota' => 'required|exists:lecturers,nidn',
+        'ketua_sidang' => 'required|exists:lecturers,id_lecturer',
+        'sekretaris' => 'required|exists:lecturers,id_lecturer',
+        'anggota' => 'required|exists:lecturers,id_lecturer',
         'no_room' => [
             'required',
             function ($attribute, $value, $fail) {
@@ -67,7 +67,7 @@ class SessionController extends Controller
 
     try {
         DB::table('sessions')->insert([
-            'nim_student' => $request->nim_student,
+            'student_id' => $request->student_id,
             'ta_id' => $request->ta_id,
             'ketua_sidang' => $request->ketua_sidang,
             'sekretaris' => $request->sekretaris,
@@ -97,17 +97,17 @@ class SessionController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nim_student' => 'required|exists:students,nim',
+            'student_id' => 'required|exists:students,id_student',
             'ta_id' => 'required|exists:thesis,id_ta',
-            'ketua_sidang' => 'required|exists:lecturers,nidn',
-            'sekretaris' => 'required|exists:lecturers,nidn',
-            'anggota' => 'required|exists:lecturers,nidn',
+            'ketua_sidang' => 'required|exists:lecturers,id_lecturer',
+            'sekretaris' => 'required|exists:lecturers,id_lecturer',
+            'anggota' => 'required|exists:lecturers,id_lecturer',
             'no_room' => 'required|exists:rooms,id_room',
             'date_session' => 'required|date',
         ]);
 
         DB::table('sessions')->where('id_session', $id)->update([
-            'nim_student' => $request->nim_student,
+            'student_id' => $request->student_id,
             'ta_id' => $request->ta_id,
             'ketua_sidang' => $request->ketua_sidang,
             'sekretaris' => $request->sekretaris,

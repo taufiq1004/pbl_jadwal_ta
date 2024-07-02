@@ -11,9 +11,9 @@ class ThesisController extends Controller
     public function index()
     {
         $data_thesis = DB::table('thesis')
-            ->join('students', 'thesis.nim_student', '=', 'students.nim')
-            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.nidn')
-            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.nidn')
+            ->join('students', 'thesis.student_id', '=', 'students.id_student')
+            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.id_lecturer')
+            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.id_lecturer')
             ->select(
                 'thesis.*',
                 'students.name as student_name',
@@ -36,7 +36,7 @@ class ThesisController extends Controller
     {
         $request->validate([
             'id_ta' => 'required',
-            'nim_student' => 'required',
+            'student_id' => 'required',
             'judul' => 'required',
             'tgl_pengajuan' => 'required',
             'file' => 'required|file|mimes:pdf,doc,docx|max:2048',
@@ -51,7 +51,7 @@ class ThesisController extends Controller
 
             Thesis::create([
                 'id_ta' => $request->id_ta,
-                'nim_student' => $request->nim_student,
+                'student_id' => $request->student_id,
                 'judul' => $request->judul,
                 'tgl_pengajuan' => $request->tgl_pengajuan,
                 'file' => $filePath,
@@ -77,7 +77,7 @@ class ThesisController extends Controller
     public function update(Request $request, $id)
 {
     $request->validate([
-        'nim_student' => 'required',
+        'student_id' => 'required',
         'judul' => 'required',
         'tgl_pengajuan' => 'required',
         'file' => 'nullable|file|mimes:pdf,doc,docx|max:2048',
@@ -88,7 +88,7 @@ class ThesisController extends Controller
     $thesis = Thesis::where('id_ta', $id)->first();
 
     $data = [
-        'nim_student' => $request->nim_student,
+        'student_id' => $request->student_id,
         'judul' => $request->judul,
         'tgl_pengajuan' => $request->tgl_pengajuan,
         'pembimbing1' => $request->pembimbing1,
@@ -127,9 +127,9 @@ class ThesisController extends Controller
     public function show($id)
     {
         $thesis = Thesis::where('id_ta', $id)
-            ->join('students', 'thesis.nim_student', '=', 'students.nim')
-            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.nidn')
-            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.nidn')
+            ->join('students', 'thesis.student_id', '=', 'students.id_student')
+            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.id_lecturer')
+            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.id_lecturer')
             ->select(
                 'thesis.*',
                 'students.name as student_name',

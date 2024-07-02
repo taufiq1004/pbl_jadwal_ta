@@ -9,7 +9,6 @@
                     <div class="card-body">
                         <form action="{{ route('lecturer.store') }}" method="POST">
                             @csrf
-        
                             <div class="mb-3">
                                 <label for="nidn" class="form-label">Nidn</label>
                                 <input type="text" class="form-control" id="nidn" name="nidn" required>

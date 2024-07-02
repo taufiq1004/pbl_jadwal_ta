@@ -11,11 +11,11 @@
                         <form action="{{ route('session.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="nim_student" class="form-label">Nama Siswa</label>
-                                <select class="form-select" id="nim_student" name="nim_student" required>
+                                <label for="student_id" class="form-label">Nama Siswa</label>
+                                <select class="form-select" id="student_id" name="student_id" required>
                                     <option selected disabled>Pilih Siswa</option>
                                     @foreach ($students as $student)
-                                        <option value="{{ $student->nim }}">{{ $student->name }}</option>
+                                        <option value="{{ $student->id_student }}">{{ $student->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -33,7 +33,7 @@
                                 <select class="form-select" id="ketua_sidang" name="ketua_sidang" required>
                                     <option selected disabled>Pilih Ketua Sidang</option>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}">{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -42,7 +42,7 @@
                                 <select class="form-select" id="sekretaris" name="sekretaris" required>
                                     <option selected disabled>Pilih Sekretaris</option>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}">{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,7 +51,7 @@
                                 <select class="form-select" id="anggota" name="anggota" required>
                                     <option selected disabled>Pilih Anggota</option>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}">{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

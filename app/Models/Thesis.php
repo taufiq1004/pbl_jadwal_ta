@@ -10,7 +10,7 @@ class Thesis extends Model
     use HasFactory;
     protected $fillable = [
         'id_ta',
-        'nim_student',
+        'student_id',
         'judul',
         'tgl_pengajuan',
         'file',

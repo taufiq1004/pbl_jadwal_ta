@@ -10,7 +10,7 @@ class Session extends Model
     use HasFactory;
     protected $fillable = [
         'id_session',
-        'nim_student',
+        'student_id',
         'ta_id',
         'ketua_sidang' ,
         'sekretaris',

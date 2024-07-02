@@ -10,12 +10,32 @@ class Penilaian extends Model
     use HasFactory;
 
     protected $table = 'penilaian';
-    protected $primaryKey = 'id_penilaian';
+
     protected $fillable = [
-        'session_id',
-        'materi_penilaian',
-        'bobot',
-        'skor',
-        'revisi',
+        'ta_id',
+        'jabatan',
+        'pembimbing1_id',
+        'presentasi_sikap_penampilan',
+        'presentasi_komunikasi_sistematika',
+        'presentasi_penguasaan_materi',
+        'makalah_identifikasi_masalah',
+        'makalah_relevansi_teori',
+        'makalah_metode_algoritma',
+        'makalah_hasil_pembahasan',
+        'makalah_kesimpulan_saran',
+        'makalah_bahasa_tata_tulis',
+        'produk_kesesuaian_fungsional',
+        'total_nilai',
+        'komentar',
     ];
+
+    public function thesis()
+    {
+        return $this->belongsTo(Thesis::class, 'ta_id', 'id_ta');
+    }
+
+    public function pembimbing1()
+    {
+        return $this->belongsTo(Lecturer::class, 'pembimbing1_id', 'nidn');
+    }
 }

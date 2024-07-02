@@ -8,7 +8,7 @@
                 <div class="container-fluid">
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                            <form action="{{ route('lecturer.update', $lecturer->nidn) }}" method="POST">
+                            <form action="{{ route('lecturer.update', $lecturer->id_lecturer) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
