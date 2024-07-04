@@ -13,7 +13,7 @@ class LecturerController extends Controller
     public function index()
     {
         $data_lecturer = DB::table('lecturers')
-            ->orderBy('nidn') // Order by id_prodi from smallest to largest
+            ->orderBy('id_lecturer') // Order by id_prodi from smallest to largest
             ->get();
         return view('backend.lecturer', compact('data_lecturer'));
     }
@@ -39,7 +39,7 @@ class LecturerController extends Controller
 
     public function edit($id)
     {
-        $lecturer= lecturer::where('nidn',$id)->first();
+        $lecturer= lecturer::where('id_lecturer',$id)->first();
         return view('backend.form.formEditLecturer', compact('lecturer'));
     }
 
@@ -60,18 +60,18 @@ class LecturerController extends Controller
             'email'=> $request->email,
            
         ];
-        DB::table('lecturers')->where('nidn',$id)->update($data);
+        DB::table('lecturers')->where('id_lecturer',$id)->update($data);
         return redirect('/lecturers')->with('success', 'Lecturer updated successfully.');
     }
 
     public function destroy($id)
     {
-        DB::table ('lecturers')->where('nidn',$id)->delete();
+        DB::table ('lecturers')->where('id_lecturer',$id)->delete();
         return redirect('/lecturers')->with('success', 'Lecturer deleted successfully.');
     }
     public function show($id)
 {
-    $lecturer = Lecturer::where('nidn', $id)->first();
+    $lecturer = Lecturer::where('id_lecturer', $id)->first();
     return view('backend.form.detailLecturer', compact('lecturer'));
 }
 

@@ -16,10 +16,10 @@
                                 <input type="text" class="form-control" id="id_ta" name="id_ta" value="{{ $thesis->id_ta }}" required disabled>
                             </div>
                             <div class="mb-3">
-                                <label for="nim_student" class="form-label">Name Student</label>
-                                <select class="form-select" id="nim_student" name="nim_student" required>
+                                <label for="student_id" class="form-label">Name Student</label>
+                                <select class="form-select" id="student_id" name="student_id" required>
                                     @foreach ($students as $student)
-                                        <option value="{{ $student->nim }}" {{ $student->nim == $thesis->nim_student ? 'selected' : '' }}>
+                                        <option value="{{ $student->id_student }}" {{ $student->id_student == $thesis->student_id ? 'selected' : '' }}>
                                             {{ $student->name }}
                                         </option>
                                     @endforeach
@@ -41,7 +41,7 @@
                                 <label for="pembimbing1" class="form-label">Pembimbing 1</label>
                                 <select class="form-select" id="pembimbing1" name="pembimbing1" required>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}" {{ $lecturer->nidn == $thesis->pembimbing1 ? 'selected' : '' }}>{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}" {{ $lecturer->id_lecturer == $thesis->pembimbing1 ? 'selected' : '' }}>{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,7 +49,7 @@
                                 <label for="pembimbing2" class="form-label">Pembimbing 2</label>
                                 <select class="form-select" id="pembimbing2" name="pembimbing2" required>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}" {{ $lecturer->nidn == $thesis->pembimbing2 ? 'selected' : '' }}>{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}" {{ $lecturer->id_lecturer == $thesis->pembimbing2 ? 'selected' : '' }}>{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

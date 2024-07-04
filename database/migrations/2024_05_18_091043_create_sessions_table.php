@@ -13,26 +13,26 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id('id_session');
-            $table->string('nim_student');
-            $table->unsignedBigInteger('ta_id');
-            $table->string('ketua_sidang');
-            $table->string('sekretaris');
-            $table->string('anggota');
+            $table->bigInteger('student_id')->unsigned();
+            $table->bigInteger('ta_id')->unsigned();
+            $table->bigInteger('ketua_sidang')->unsigned();
+            $table->bigInteger('sekretaris')->unsigned();
+            $table->bigInteger('anggota')->unsigned();
             $table->unsignedBigInteger('no_room');
             $table->string('sesi');
             $table->date('date_session');
            // $table->timestamps();
         });
         Schema::table('sessions', function (Blueprint $table) {
-            $table->foreign('nim_student')->references('nim')->on('students')
+            $table->foreign('student_id')->references('id_student')->on('students')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ta_id')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('ketua_sidang')->references('nidn')->on('lecturers')
+            $table->foreign('ketua_sidang')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('sekretaris')->references('nidn')->on('lecturers')
+            $table->foreign('sekretaris')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('anggota')->references('nidn')->on('lecturers')
+            $table->foreign('anggota')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('no_room')->references('id_room')->on('rooms')
                     ->onUpdate('cascade')->onDelete('cascade');

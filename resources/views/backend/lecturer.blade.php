@@ -42,9 +42,9 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_lecturer as $index => $data)
+                                    @foreach ($data_lecturer as $data)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $data->id_lecturer }}</td>
                                         <td>{{ $data->nidn }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->gender }}</td>
@@ -64,13 +64,13 @@
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
                                             </form> --}}
-                                            <a href="{{ route('lecturer.show', ['id' => $data->nidn]) }}" class="btn btn-info btn-sm">
+                                            <a href="{{ route('lecturer.show', ['id' => $data->id_lecturer]) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Detail
                                             </a>
-                                            <a href="{{ route('lecturer.edit', ['id' => $data->nidn]) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('lecturer.edit', ['id' => $data->id_lecturer]) }}" class="btn btn-secondary btn-sm">
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
-                                            <form action="{{ route('lecturer.destroy', $data->nidn) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('lecturer.destroy', $data->id_lecturer) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">

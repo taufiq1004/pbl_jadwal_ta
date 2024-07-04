@@ -10,7 +10,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
 
-                            <form action="{{ route('student.update', $student->nim) }}" method="POST">
+                            <form action="{{ route('student.update', $student->id_student) }}" method="POST">
 
                                 @csrf
                                 @method('PUT')

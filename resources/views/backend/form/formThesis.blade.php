@@ -14,11 +14,11 @@
                                 <input type="text" class="form-control" id="id_ta" name="id_ta" required>
                             </div>
                             <div class="mb-3">
-                                <label for="nim_student" class="form-label">Name Student</label>
-                                <select class="form-select" id="nim_student" name="nim_student" required>
+                                <label for="student_id" class="form-label">Name Student</label>
+                                <select class="form-select" id="student_id" name="student_id" required>
                                     <option selected disabled>Select Student</option>
                                     @foreach ($students as $student)
-                                        <option value="{{ $student->nim }}">{{ $student->name }}</option>
+                                        <option value="{{ $student->id_student }}">{{ $student->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                                 <select class="form-select" id="pembimbing1" name="pembimbing1" required>
                                     <option selected disabled>Select Pembimbing 1</option>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer }}">{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -48,7 +48,7 @@
                                 <select class="form-select" id="pembimbing2" name="pembimbing2" required>
                                     <option selected disabled>Select Pembimbing 2</option>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->nidn }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id_lecturer}}">{{ $lecturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

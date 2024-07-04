@@ -29,18 +29,20 @@ class ImportDosen implements ToCollection
 
             // Debug: Log the data being imported
             Log::info('Importing lecturer: ', [
-                'nidn' => $row[0],
-                'name' => $row[1],
-                'gender' => $row[2],
-                'email' => $row[3],
+                'id_lecturer' => $row[0],
+                'nidn' => $row[1],
+                'name' => $row[2],
+                'gender' => $row[3],
+                'email' => $row[4],
             ]);
 
             Lecturer::create([
-                'nidn' => $row[0],
-                'name' => $row[1],
-                'gender' => $row[2],
-                'email' => $row[3],
-            ]);
+                'id_lecturer' => $row[0],
+                'nidn' => $row[1],
+                'name' => $row[2],
+                'gender' => $row[3],
+                'email' => $row[4],   
+                     ]);
         }
     }
 }

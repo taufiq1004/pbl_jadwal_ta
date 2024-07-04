@@ -319,9 +319,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/penilaian', [PenilaianController::class, 'index'])->name('backend.penilaian');
     Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
-    Route::post('/penilaian/store', [PenilaianController::class, 'store'])->name('penilaian.store');
-    Route::get('/penilaian/edit/{id}', [PenilaianController::class, 'edit'])->name('penilaian.edit');
-    Route::put('/penilaian/update/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
+    Route::post('/penilaian', [PenilaianController::class, 'store'])->name('penilaian.store');
+    Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
+    Route::put('/penilaian/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
     Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
 });
 

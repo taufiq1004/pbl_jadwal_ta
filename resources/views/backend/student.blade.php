@@ -41,19 +41,19 @@
                                     </tr>
                                 </thead>
                                 <tbody class="table-bordered">
-                                    @foreach ($data_student as $index => $data)
+                                    @foreach ($data_student as $data)
                                     <tr>
-                                        <td>{{ $index +1 }}</td>
+                                        <td>{{ $data->id_student }}</td>
                                         <td>{{ $data->nim }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->prodi_name }}</td>
                                         <td>{{ $data->force }}</td>
                                         <td>
-                                            <a href="{{ route('student.edit', $data->nim) }}" class="btn btn-secondary btn-sm">
+                                            <a href="{{ route('student.edit', $data->id_student) }}" class="btn btn-secondary btn-sm">
 
                                                 <i class="fas fa-edit"></i> Update
                                             </a>
-                                            <form action="{{ route('student.destroy', $data->nim) }}" method="POST" style="display:inline-block;">
+                                            <form action="{{ route('student.destroy', $data->id_student) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
 

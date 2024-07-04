@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('validasi_ta', function (Blueprint $table) {
             $table->id('id_validasi');
-            $table->unsignedBigInteger('ta_id');
+            $table->bigInteger('ta_id')->unsigned();
             $table->string('komentar');
             $table->string('status');
         });

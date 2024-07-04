@@ -14,19 +14,19 @@ class LecturerSeeder extends Seeder
     public function run(): void
     {
         $data_lecturer=[
-            ['0025088802', 'ALDE ALANDA, S.Kom, M.T','Laki-Laki','alde@pnp.ac.id'],
-            ['003078904','ALDO ERIANDA, M.T, S.ST', 'Laki-laki', 'aldo@pnp.ac.id'],
-            ['0002037410','CIPTO PRABOWO, S.T, M.T', 'Laki-laki', 'cipto@pnp.ac.id'],
-            ['0015048105', 'DEDDY PRAYAMA, S.Kom, M.ISD', 'Laki-laki', 'deddy@pnp.ac.id'],
-            ['0007128104','DEFNI, S.Si, M.Kom', 'Perempuan','defni@pnp.ac.id'],
-            ['0028097803','DENI SATRIA, S.Kom, M.Kom','Laki-laki', 'dns1st@gmail.com'],
-            ['0009058601','DWINY MEIDELFI, S.Kom, M.Cs',  'Perempuan',  'dwinymeidelfi@pnp.ac.id'],
-            ['0001097802','ERVAN ASRI, S.Kom, M.Kom', 'Laki-laki', 'ervan@pnp.ac.id'],
-            ['0021078601','FAZROL ROZI, M.Sc.', 'Laki-laki','fazrol@pnp.ac.id'],
-            ['1029058502','FITRI NOVA, M.T, S.ST', 'Perempuan','fitrinova85@gmail.com'],
-            ['0020028804', 'Andre Febrian Kasmar, S.T., M.T.', 'Laki-laki','andrefebrian@pnp.ac.id'],
-            ['0029068102','MERI AZMI, S.T, M.Cs',  'Perempuan','meriazmi@gmail.com'],
-            ['0010088805', 'TAUFIK GUSMAN, S.S.T, M.Ds', 'Laki-laki', 'taufikgusman@gmail.com'],
+            ['1','0025088802', 'ALDE ALANDA, S.Kom, M.T','Laki-Laki','alde@pnp.ac.id'],
+            ['2','003078904','ALDO ERIANDA, M.T, S.ST', 'Laki-laki', 'aldo@pnp.ac.id'],
+            ['3','0002037410','CIPTO PRABOWO, S.T, M.T', 'Laki-laki', 'cipto@pnp.ac.id'],
+            ['4','0015048105', 'DEDDY PRAYAMA, S.Kom, M.ISD', 'Laki-laki', 'deddy@pnp.ac.id'],
+            ['5','0007128104','DEFNI, S.Si, M.Kom', 'Perempuan','defni@pnp.ac.id'],
+            ['6','0028097803','DENI SATRIA, S.Kom, M.Kom','Laki-laki', 'dns1st@gmail.com'],
+            ['7','0009058601','DWINY MEIDELFI, S.Kom, M.Cs',  'Perempuan',  'dwinymeidelfi@pnp.ac.id'],
+            ['8','0001097802','ERVAN ASRI, S.Kom, M.Kom', 'Laki-laki', 'ervan@pnp.ac.id'],
+            ['9','0021078601','FAZROL ROZI, M.Sc.', 'Laki-laki','fazrol@pnp.ac.id'],
+            ['10','1029058502','FITRI NOVA, M.T, S.ST', 'Perempuan','fitrinova85@gmail.com'],
+            ['11','0020028804', 'Andre Febrian Kasmar, S.T., M.T.', 'Laki-laki','andrefebrian@pnp.ac.id'],
+            ['12','0029068102','MERI AZMI, S.T, M.Cs',  'Perempuan','meriazmi@gmail.com'],
+            ['13','0010088805', 'TAUFIK GUSMAN, S.S.T, M.Ds', 'Laki-laki', 'taufikgusman@gmail.com'],
 
         //     [11,'Ir. HANRIYAWAN ADNAN MOODUTO, M.Kom.', '0010056606', '196605101994031003', 'Laki-laki', 7, 19, 'mooduto@pnp.ac.id', '12345678', '', '1'],
         //     [12,'HENDRICK, S.T, M.T.,Ph.D', '0002127705', '197712022006041000', 'Laki-laki', 4, 7, 'hendrickpnp77@gmail.com', '12345678', '', '1'],
@@ -63,10 +63,11 @@ class LecturerSeeder extends Seeder
         ];
         foreach($data_lecturer as $data){
             DB::table('lecturers')->insert([
-                'nidn'=>$data[0],
-                'name'=>$data[1],
-                'gender'=>$data[2],
-                'email'=>$data[3],
+                'id_lecturer'=>$data[0],
+                'nidn'=>$data[1],
+                'name'=>$data[2],
+                'gender'=>$data[3],
+                'email'=>$data[4],
             ]);
         }
     }

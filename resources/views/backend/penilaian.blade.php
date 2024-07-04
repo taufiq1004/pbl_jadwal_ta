@@ -1,57 +1,52 @@
 @extends('layouts.backend.template')
+
 @section('content')
-<!-- Page Heading -->
-<h5 class="card-title fw-semibold mb-4">Data Penilaian</h5>
-<div class="container-fluid">
-    <!-- DataPenilaian -->
-    <div class="card shadow mb-4">
-        <div>
-            <a href="{{ route('penilaian.create') }}" class="btn btn-primary btn-sm">
-                <i class="fas fa-plus"></i> Add Data
-            </a>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr class="table-info">
-                            <th>No</th>
-                            <th>Materi Penilaian</th>
-                            <th>Bobot(%)</th>
-                            <th>Skor</th>
-                            <th>Revisi</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($penilaians as $penilaian)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $penilaian->materi_penilaian }}</td>
-                            <td>{{ $penilaian->bobot }}</td>
-                            <td>{{ $penilaian->skor }}</td>
-                            <td>{{ $penilaian->revisi ?? 'Tidak ada' }}</td>
-                            <td>
-                                <form action="{{ route('penilaian.edit', $penilaian->id_penilaian) }}" method="GET" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-secondary">
-                                        <i class="fas fa-edit"></i> Update
-                                    </button>
-                                </form>
-                                <form action="{{ route('penilaian.destroy', $penilaian->id_penilaian) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
-                                        <i class="fas fa-trash"></i> Delete
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+    <div class="container">
+        <h1 class="mb-4">Daftar Penilaian</h1>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-        </div>
+        @endif
+
+        <a href="{{ route('penilaian.create') }}" class="btn btn-primary mb-3">Tambah Penilaian</a>
+
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead class="table-bordered">
+                <tr class="table-info">
+                    <th>ID</th>
+                    <th>Tugas Akhir</th>
+                    <th>Jabatan</th>
+                    <th>Dosen</th>
+                    <th>Total Nilai</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($penilaians as $penilaian)
+                    <tr>
+                        <td>{{ $penilaian->id }}</td>
+                        <td>{{ $penilaian->thesis->judul }}</td>
+                        <td>{{ $penilaian->jabatan }}</td>
+                        <td>{{ $penilaian->pembimbing1->name }}</td>
+                        <td>{{ $penilaian->total_nilai }}</td>
+                        <td>
+                            <a href="{{ route('penilaian.edit', $penilaian->id) }}" class="btn btn-secondary btn-sm">
+                                <i class="fas fa-edit"></i> Update
+                            </a>
+                            <form action="{{ route('penilaian.destroy', $penilaian->id) }}" method="POST" style="display:inline-block;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                            
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
-</div>
 @endsection
