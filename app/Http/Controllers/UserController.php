@@ -17,6 +17,7 @@ class UserController extends Controller
         $data_user = DB::table('users')
             ->orderBy('id')
             ->get();
+            // dd($data_user);
         return view('backend.users', compact('data_user'));
     }
 
@@ -89,10 +90,10 @@ class UserController extends Controller
     }
 
   
-    public function export_excel()
+    public function export_user()
     {
-        dd('export_excel method called'); // Debugging
-        return Excel::download(new ExportUser, 'Users.xlsx');
+         return Excel::download(new ExportUser, "Users.xlsx");
+        // return view('backend.contoh');
     }
 
     public function import_excel(Request $request)

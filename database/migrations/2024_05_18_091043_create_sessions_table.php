@@ -13,30 +13,27 @@ return new class extends Migration
     {
         Schema::create('sessions', function (Blueprint $table) {
             $table->id('id_session');
-            $table->bigInteger('student_id')->unsigned();
             $table->bigInteger('ta_id')->unsigned();
             $table->bigInteger('ketua_sidang')->unsigned();
             $table->bigInteger('sekretaris')->unsigned();
-            $table->bigInteger('anggota')->unsigned();
+            $table->bigInteger('penguji1')->unsigned();
+            $table->bigInteger('penguji2')->unsigned();
             $table->unsignedBigInteger('no_room');
-            $table->string('sesi');
             $table->date('date_session');
            // $table->timestamps();
         });
         Schema::table('sessions', function (Blueprint $table) {
-            $table->foreign('student_id')->references('id_student')->on('students')
-                    ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ta_id')->references('id_ta')->on('thesis')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('ketua_sidang')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('sekretaris')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('anggota')->references('id_lecturer')->on('lecturers')
+            $table->foreign('penguji1')->references('id_lecturer')->on('lecturers')
+                    ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('penguji2')->references('id_lecturer')->on('lecturers')
                     ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('no_room')->references('id_room')->on('rooms')
-                    ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('sesi')->references('sesi')->on('sesi')
                     ->onUpdate('cascade')->onDelete('cascade');
         });
     }

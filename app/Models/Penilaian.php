@@ -26,7 +26,7 @@ class Penilaian extends Model
         'makalah_bahasa_tata_tulis',
         'produk_kesesuaian_fungsional',
         'total_nilai',
-        'komentar',
+        'komentar'
     ];
 
     public function thesis()
@@ -36,6 +36,12 @@ class Penilaian extends Model
 
     public function pembimbing1()
     {
-        return $this->belongsTo(Lecturer::class, 'pembimbing1_id', 'nidn');
+        return $this->belongsTo(Lecturer::class, 'pembimbing1_id', 'id_lecturer');
     }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class, 'ta_id', 'ta_id');
+    }
+    
 }

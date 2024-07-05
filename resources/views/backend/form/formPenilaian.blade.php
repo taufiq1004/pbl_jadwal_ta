@@ -35,19 +35,19 @@
                     <option value="Pembimbing2" {{ old('jabatan') == 'Pembimbing2' ? 'selected' : '' }}>Pembimbing 2</option>
                     <option value="KetuaSidang" {{ old('jabatan') == 'KetuaSidang' ? 'selected' : '' }}>Ketua Sidang</option>
                     <option value="SekretarisSidang" {{ old('jabatan') == 'SekretarisSidang' ? 'selected' : '' }}>Sekretaris Sidang</option>
-                    <option value="Anggota" {{ old('jabatan') == 'Anggota' ? 'selected' : '' }}>Anggota</option>
-                    
+                    <option value="Penguji1" {{ old('jabatan') == 'Penguji1' ? 'selected' : '' }}>Penguji 1</option>
+                    <option value="Penguji2" {{ old('jabatan') == 'Penguji2' ? 'selected' : '' }}>Penguji 2</option>
                 </select>
                 @error('jabatan')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
-            </div>
+                </div>            
             <div class="mb-3">
-                <label for="pembimbing1_id">Pembimbing 1</label>
+                <label for="pembimbing1_id">Dosen</label>
                 <select name="pembimbing1_id" id="pembimbing1_id" class="form-control" required>
-                    <option value="" disabled selected>Pilih Pembimbing1</option>
+                    <option value="" disabled selected>Pilih Nama Dosen</option>
                     @foreach ($lecturers as $lecturer)
                         <option value="{{ $lecturer->id_lecturer }}" {{ old('pembimbing1_id') == $lecturer->id_lecturer ? 'selected' : '' }}>
                             {{ $lecturer->name }}

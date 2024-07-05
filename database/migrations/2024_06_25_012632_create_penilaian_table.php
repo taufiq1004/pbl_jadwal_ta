@@ -29,6 +29,12 @@ return new class extends Migration
             $table->decimal('total_nilai', 5, 2);
             $table->text('komentar')->nullable();
             $table->timestamps();
+            // $table->unsignedBigInteger('session_id'); 
+
+            // $table->foreign('session_id')
+            //       ->references('id_session') // Reference the custom primary key
+            //       ->on('sessions')
+            //       ->onDelete('cascade');
 
         });
         Schema::table('penilaian', function (Blueprint $table) {

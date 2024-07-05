@@ -10,17 +10,12 @@
                         <form action="{{ route('thesis.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label for="id_ta" class="form-label">Id TA</label>
-                                <input type="text" class="form-control" id="id_ta" name="id_ta" required>
+                                <label for="nim" class="form-label">NIM</label>
+                                <input type="text" class="form-control" id="nim" name="nim" required>
                             </div>
                             <div class="mb-3">
-                                <label for="student_id" class="form-label">Name Student</label>
-                                <select class="form-select" id="student_id" name="student_id" required>
-                                    <option selected disabled>Select Student</option>
-                                    @foreach ($students as $student)
-                                        <option value="{{ $student->id_student }}">{{ $student->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="nama" class="form-label">nama</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
                             </div>
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul TA</label>
@@ -31,8 +26,20 @@
                                 <input type="date" class="form-control" id="tgl_pengajuan" name="tgl_pengajuan" required>
                             </div>
                             <div class="mb-3">
-                                <label for="file" class="form-label">Upload File Baru</label>
+                                <label for="file" class="form-label">Upload File TA</label>
                                 <input type="file" class="form-control" id="file" name="file" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dokumen_pkl" class="form-label">Upload Dokumen PKL</label>
+                                <input type="file" class="form-control" id="dokumen_pkl" name="dokumen_pkl" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="proposal" class="form-label">Proposal</label>
+                                <input type="file" class="form-control" id="proposal" name="proposal" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="lembar_bimbingan" class="form-label">Lembar Bimbingan</label>
+                                <input type="file" class="form-control" id="lembar_bimbingan" name="lembar_bimbingan" required>
                             </div>
                             <div class="mb-3">
                                 <label for="pembimbing1" class="form-label">Pembimbing 1</label>
