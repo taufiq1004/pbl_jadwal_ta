@@ -13,8 +13,12 @@
                                 <td>{{ $thesis->id_ta }}</td>
                             </tr>
                             <tr>
+                                <th>NIM</th>
+                                <td>{{ $thesis->nim }}</td>
+                            </tr>
+                            <tr>
                                 <th>Nama Mahasiswa</th>
-                                <td>{{ $thesis->student_name }}</td>
+                                <td>{{ $thesis->nama }}</td>
                             </tr>
                             <tr>
                                 <th>Judul</th>
@@ -25,10 +29,34 @@
                                 <td>{{ $thesis->tgl_pengajuan }}</td>
                             </tr>
                             <tr>
-                                <th>File</th>
+                                <th>File Tugas Akhir</th>
                                 <td>
                                     <a href="{{ Storage::url($thesis->file) }}" class="btn btn-success" download>
-                                        <i class="fas fa-download"></i> Unduh
+                                        <i class="fas fa-download"></i> Tugas Akhir
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>File Dokumen PKL</th>
+                                <td>
+                                    <a href="{{ Storage::url($thesis->dokumen_pkl) }}" class="btn btn-success" download>
+                                        <i class="fas fa-download"></i> Dokumen PKL
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>File Proposal</th>
+                                <td>
+                                    <a href="{{ Storage::url($thesis->proposal) }}" class="btn btn-success" download>
+                                        <i class="fas fa-download"></i> Proposal
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>File Lembar Bimbingan</th>
+                                <td>
+                                    <a href="{{ Storage::url($thesis->lembar_bimbingan) }}" class="btn btn-success" download>
+                                        <i class="fas fa-download"></i> Lembar Bimbingan
                                     </a>
                                 </td>
                             </tr>

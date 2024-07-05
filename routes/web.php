@@ -259,6 +259,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
     Route::get('/thesis/{id}', [ThesisController::class, 'show'])->name('thesis.show');
+    Route::get('/download/{file}', [ThesisController::class, 'download'])->name('thesis.download');
 });
 
 Route::middleware('auth')->group(function () {
@@ -273,6 +274,7 @@ Route::middleware('auth')->group(function () {
     Route::post('session/import_excel', [SessionController::class, 'import_excel'])->name('session.import_excel');
     // routes/web.php
     Route::get('/session/get-pembimbing', [SessionController::class, 'getPembimbing'])->name('session.getPembimbing');
+    Route::get('/session', [SessionController::class, 'index'])->name('session');
     
 
 });
@@ -310,7 +312,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/export_excel', [UserController::class, 'export_excel'])->name('users.export_excel');
+    Route::get('/users/export_user', [UserController::class, 'export_user']);
     Route::post('/users/import_excel', [UserController::class, 'import_excel'])->name('users.import_excel');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 });
@@ -323,6 +325,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
     Route::put('/penilaian/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
     Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+    Route::get('/penilaian/average/{id}', [PenilaianController::class, 'getAverageScore']);
+
 });
 
 Route::middleware('auth')->group(function () {

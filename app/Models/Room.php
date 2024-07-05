@@ -20,4 +20,8 @@ class Room extends Model
 
     // Disable timestamps
     public $timestamps = false;
+    public function sessions()
+    {   
+    return $this->hasMany(Session::class, 'room_id');
+    }
 }
