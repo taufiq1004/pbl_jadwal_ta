@@ -18,10 +18,14 @@
                                 <thead class="table-bordered">
                                     <tr class="table-info">
                                         <th>Id</th>
+                                        <th>Nim</th>
                                         <th>Name Student</th>
                                         <th>Judul</th>
                                         <th>Tgl Pengajuan</th>
-                                        <th>File</th>
+                                        <th>Tugas Akhir</th>
+                                        <th>Dokumen PKL</th>
+                                        <th>Proposal</th>
+                                        <th>Lembar Bimbingan</th>
                                         <th>Pembimbing1</th>
                                         <th>Pembimbing2</th>
                                         <th>Action</th>
@@ -31,17 +35,25 @@
                                     @foreach ($data_thesis as $data)
                                     <tr>
                                         <td>{{ $data->id_ta }}</td>
-                                        <td>{{ $data->student_name }}</td>
+                                        <td>{{ $data->nim }}</td>
+                                        <td>{{ $data->nama }}</td>
                                         <td>{{ $data->judul }}</td>
                                         <td>{{ $data->tgl_pengajuan }}</td>
-                                        <td>{{ $data->file_name }}</td>
+                                        <td>  <a href="{{ asset('storage/uploads/thesis/' . $data->file_name) }}" class="btn btn-success" style="display:inline-block;" download>
+                                            <i class="fas fa-download"></i>Tugas Akhir
+                                         </a></td>
+                                        <td>  <a href="{{ asset('storage/' . $data->dokumen_pkl) }}" class="btn btn-success" style="display:inline-block;" download>
+                                            <i class="fas fa-download"></i> Dokumen PKL
+                                         </a></td>
+                                       <td>  <a href="{{ asset('storage/' . $data->proposal) }}" class="btn btn-success" style="display:inline-block;" download>
+                                        <i class="fas fa-download"></i> Proposal
+                                         </a></td>
+                                        <td>  <a href="{{ asset('storage/' . $data->lembar_bimbingan) }}" class="btn btn-success" style="display:inline-block;" download>
+                                            <i class="fas fa-download"></i> Lembar Bimbingan
+                                       </a></td>
                                         <td>{{ $data->pembimbing1_name }}</td>
                                         <td>{{ $data->pembimbing2_name }}</td>
                                         <td>
-
-                                            <a href="{{ Storage::url($data->file) }}" class="btn btn-success" style="display:inline-block;" download>
-                                                <i class="fas fa-download"></i> Download
-                                            </a>            
                                             <a href="{{ route('thesis.show', ['id' => $data->id_ta]) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Detail
                                             </a>                               

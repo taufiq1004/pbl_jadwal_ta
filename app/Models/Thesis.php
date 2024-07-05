@@ -10,11 +10,15 @@ class Thesis extends Model
     use HasFactory;
     protected $fillable = [
         'id_ta',
-        'student_id',
+        'nim',
+        'nama',
         'judul',
         'tgl_pengajuan',
         'file',
         'file_name',
+        'dokumen_pkl',
+        'proposal',
+        'lembar_bimbingan',
         'pembimbing1',
         'pembimbing2',
         // Add any other attributes that you want to be mass assignable

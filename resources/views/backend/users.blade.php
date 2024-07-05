@@ -13,8 +13,9 @@
                         <a href="{{ url('/formUser') }}" class="btn btn-primary btn-sm">
                             <i class="fas fa-plus"></i> Add Data
                         </a>
-                        <a href="{{ route('users.export_excel') }}" class="btn btn-success btn-sm">
+                        <a href="{{ url('users/export_user') }}" class="btn btn-success btn-sm">
                             <i class="fas fa-file-excel"></i> Export
+                        </a>
                         </a>
                         <!-- Button untuk membuka modal import -->
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importModal">

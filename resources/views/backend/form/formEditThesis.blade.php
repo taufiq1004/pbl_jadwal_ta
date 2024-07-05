@@ -16,14 +16,12 @@
                                 <input type="text" class="form-control" id="id_ta" name="id_ta" value="{{ $thesis->id_ta }}" required disabled>
                             </div>
                             <div class="mb-3">
-                                <label for="student_id" class="form-label">Name Student</label>
-                                <select class="form-select" id="student_id" name="student_id" required>
-                                    @foreach ($students as $student)
-                                        <option value="{{ $student->id_student }}" {{ $student->id_student == $thesis->student_id ? 'selected' : '' }}>
-                                            {{ $student->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
+                                <label for="nim" class="form-label">NIM</label>
+                                <input type="text" class="form-control" id="nim" name="nim" value="{{ $thesis->nim }}" required disabled>
+                            </div>
+                              <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Mahasiswa</label>
+                                <input type="text" class="form-control" id="nama" name="nama" value="{{ $thesis->nama }}" required disabled>
                             </div>
                             <div class="mb-3">
                                 <label for="judul" class="form-label">Judul TA</label>

@@ -138,6 +138,7 @@ Route::middleware(['auth', 'verified', 'role:admin|mahasiswa|kaprodi|dosen'])->g
     Route::put('/thesis/update/{id}', [ThesisController::class, 'update'])->name('thesis.update');
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
     Route::get('/thesis/{id}', [ThesisController::class, 'show'])->name('thesis.show');
+    Route::get('/download/{file}', [ThesisController::class, 'download'])->name('thesis.download');
 });
 Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function () {
     // Session Routes
@@ -150,6 +151,8 @@ Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function ()
     Route::get('session/export_excel', [SessionController::class, 'export_excel']);
     Route::post('session/import_excel', [SessionController::class, 'import_excel'])->name('session.import_excel');
     Route::get('/session/get-pembimbing', [SessionController::class, 'getPembimbing'])->name('session.getPembimbing');
+
+
 });
 
 Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
@@ -180,10 +183,28 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/users/edit/{id}', [UserController::class, 'edit'])->name('users.edit');
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-    Route::get('/users/export_excel', [UserController::class, 'export_excel'])->name('users.export_excel');
+    Route::get('/users/export_user', [UserController::class, 'export_user']);
     Route::post('/users/import_excel', [UserController::class, 'import_excel'])->name('users.import_excel');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 });
 
 
-require __DIR__ . '/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('backend.penilaian');
+    Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
+    Route::post('/penilaian', [PenilaianController::class, 'store'])->name('penilaian.store');
+    Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
+    Route::put('/penilaian/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
+    Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/validasiTa', [ValidasiTaController::class, 'index'])->name('backend.validasiTa');
+    Route::get('/validasiTa/create', [ValidasiTaController::class, 'create'])->name('backend.form.formValidasiTa');
+    Route::post('/validasiTa/store', [ValidasiTaController::class, 'store'])->name('backend.form.formValidasiTa.store');
+    Route::get('/validasiTa/edit/{id}', [ValidasiTaController::class, 'edit'])->name('backend.form.formEditValidasiTa');
+    Route::put('/validasiTa/update/{id}', [ValidasiTaController::class, 'update'])->name('backend.form.formEditValidasiTa.update');
+    Route::delete('/validasiTa/{id}', [ValidasiTaController::class, 'destroy'])->name('backend.form.formEditValidasiTa.destroy');
+});
+
+

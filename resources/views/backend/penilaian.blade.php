@@ -29,6 +29,7 @@
                         <td>{{ $penilaian->id }}</td>
                         <td>{{ $penilaian->thesis->judul }}</td>
                         <td>{{ $penilaian->jabatan }}</td>
+                        <td>{{ optional($penilaian->pembimbing1)->name }}</td> <!-- Updated line -->
                         <td>{{ $penilaian->pembimbing1 ? $penilaian->pembimbing1->name : 'N/A' }}</td>
                         {{-- <td>{{ $penilaian->pembimbing1->name }}</td> --}}
                         <td>{{ $penilaian->total_nilai }}</td>
@@ -51,3 +52,4 @@
         </table>
     </div>
 @endsection
+

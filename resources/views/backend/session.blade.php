@@ -1,115 +1,209 @@
 @extends('layouts.backend.template')
+
 @section('content')
-                <!-- Page Heading -->
-                <h5 class="card-title fw-semibold mb-4">Data Session</h5>
-                <div class="container-fluid">
-                    <!-- DataDosen -->
-                    <div class="card shadow mb-4">
-                        <div>
-                            <!-- Tambahkan elemen lain sesuai kebutuhan -->
-                            <a href="{{ url('/formsession') }}" class="btn btn-primary btn-sm">
-                                <i class="fas fa-plus"></i> Add Data
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr class="table-info">
-                                            <th>ID</th>
-                                            <th>NIM </th>
-                                            <th>Judul TA</th>
-                                            <th>Action</th>
-                                            <th>Ketua Sidang</th>
-                                            <th>Sekretaris</th>
-                                            <th>Anggota</th>
-                                            <th>Ruangan-Sesi</th>
-                                            <th>Tanggal Sidang</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        {{-- <tr class="table-info">
-                                            <th>Id Lecturer</th>
-                                            <th>Nidn</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Position</th>
-                                            <th>prodi</th>
-                                            {{-- <th>Email</th>
-                                            <th>Password</th>
-                                            <th>Foto</th>
-                                            <th>Status</th> --}}
-                                            {{-- <th>Aksi</th> --}}
-                                        {{-- </tr> --}}
-                                    </tfoot>
-                                    <tbody>
-                                        @foreach ($data_sessions as $data)
-                                        <tr class="table-Light">
-                                            <td>{{ $data->id_session }}</td>
-                                            <td>{{ $data->student_name }}</td>
-                                            <td>{{ $data->judul_ta }}</td>
-                                            <td>
-                                                <a href="{{ route('penilaian.create', $data->id_session) }}" class="btn btn-primary">
-                                                    <i class="fas fa-edit"></i> Nilai
-                                                </a>
-                                            </td>
-                                            <td>{{ $data->ketua_name }}</td>
-                                            <td>{{ $data->sekretaris_name }}</td>
-                                            <td>{{ $data->anggota_name }}</td>
-                                            <td>{{ $data->no_room }} - sesi {{ $data->sesi }}</td>
-                                            <td>{{ $data->date_session }}</td>
-                                            <td>
-                                                {{-- <a data-bs-toggle="modal" data-bs-target="#detail{{ $data->id_lecturer }}" class="btn btn-secondary"><i class="bi bi-three-dots-vertical"></i></a> --}}
-                                                <form action="{{ route('session.edit', ['id' => $data->id_session]) }}" method="GET" style="display: inline;">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <button type="submit" class="btn btn-secondary">
-                                                        <i class="fas fa-edit"></i> Update
-                                                    </button>
-                                                </form>
-                                                <form action="{{ route('session.destroy', ['id' => $data->id_session]) }}" method="POST" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">
-                                                        <i class="fas fa-trash"></i> Delete
-                                                    </button>
-                                                </form>
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <h1 class="h2">Daftar Sidang</h1>
+        </div>
 
-
-                                            </td>
-                                        </tr>
-
-                                      @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-   
-
-{{-- <!-- Modal untuk import -->--}}
-<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="importModalLabel">Import Data</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <a href="{{ route('session.create') }}" class="btn btn-primary mb-3">Tambah Sidang</a>
+        @if (session()->has('success'))
+            <div class="alert alert-success" role="alert">
+                {{ session('success') }}
             </div>
-            <div class="modal-body">
-                <form action="{{ route('session.import_excel') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <label for="file">Choose Excel File</label>
-                        <input type="file" class="form-control-file" id="file" name="file" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </form>
-            </div>
+        @endif
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr class="table-info">
+                        <th>Judul Tugas Akhir</th>
+                        <th>Nama Mahasiswa</th>
+                        <th>Ketua Sidang</th>
+                        <th>Sekretaris</th>
+                        <th>Penguji 1</th>
+                        <th>Penguji 2</th>
+                        <th>Ruangan</th>
+                        <th>Tanggal Sidang</th>
+                        <th>Status Sidang</th>
+                        <th>Total Nilai</th>
+                        <th>Total Nilai</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($data_sessions as $sidang)
+                        <tr>
+                            <td>{{ $sidang->thesis->judul ?? '-' }}</td>
+                            <td>{{ $sidang->thesis->nim }} - {{ $sidang->thesis->nama}} </td>
+                            <td>
+                                @php
+                                    $penilaianKetuaSidang = $sidang->penilaians()->where('jabatan', 'KetuaSidang')->first();
+                                    $totalNilaiKetua = $penilaianKetuaSidang ? $penilaianKetuaSidang->total_nilai : 0;
+                                @endphp
+                               {{ $sidang->ketua_name }} - ({{ $totalNilaiKetua ?? 'N/A' }})
+                            </td>
+                            <td>
+                                @php
+                                    $penilaianSekretaris = $sidang->penilaians()->where('jabatan', 'SekretarisSidang')->first();
+                                    $totalNilaiSekretaris = $penilaianSekretaris ? $penilaianSekretaris->total_nilai : 0;
+                                @endphp
+                                {{ $sidang->sekretaris_name }} - ({{ $totalNilaiSekretaris ?? 'N/A' }})
+                            </td>
+                            <td>
+                                @php
+                                    $penilaianPenguji1 = $sidang->penilaians()->where('jabatan', 'Penguji1')->first();
+                                    $totalNilaiPenguji1 = $penilaianPenguji1 ? $penilaianPenguji1->total_nilai : 0;
+                                @endphp
+                                 {{ $sidang->penguji1_name }} - ({{ $totalNilaiPenguji1 ?? 'N/A' }})
+                            </td>
+                            <td>
+                                @php
+                                    $penilaianPenguji2 = $sidang->penilaians()->where('jabatan', 'Penguji2')->first();
+                                    $totalNilaiPenguji2 = $penilaianPenguji2 ? $penilaianPenguji2->total_nilai : 0;
+                                @endphp
+                                 {{ $sidang->penguji2_name }} - ({{ $totalNilaiPenguji2 ?? 'N/A' }})
+                            </td>
+                           
+                            <td>{{ $sidang->no_room ?? '-' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($sidang->date_session)->format('d-m-Y') }}</td>
+                            <td>
+                                @php
+                                    $jumlahPenilaian = 0;
+                                    $totalNilai = 0;
+
+                                    if ($totalNilaiKetua > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiKetua;
+                                    }
+                                    if ($totalNilaiSekretaris > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiSekretaris;
+                                    }
+
+                                    if ($totalNilaiPenguji1 > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiPenguji1;
+                                    }
+
+                                    if ($totalNilaiPenguji2 > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiPenguji2;
+                                    }
+
+                                    
+
+                                    $rataRata = $jumlahPenilaian > 0 ? number_format($totalNilai / $jumlahPenilaian, 2) : '-';
+                                    $statusSidang = $rataRata !== '-' ? ($rataRata > 70 ? 'Lulus' : 'Tidak Lulus') : '-';
+                                @endphp
+                                {{ $statusSidang }}
+                            </td>
+                            <td>
+                                @php
+                                    $rataRata = $jumlahPenilaian > 0 ? number_format($totalNilai / $jumlahPenilaian, 2) : 'N/A';
+                                @endphp
+                                {{ $rataRata }}
+                            </td>
+                            <td id="rata-rata-{{ $sidang->id }}">
+                                @php
+                                    $totalNilaiKetua = $penilaianKetuaSidang ? $penilaianKetuaSidang->total_nilai : 0;
+                                    $totalNilaiSekretaris = $penilaianSekretaris ? $penilaianSekretaris->total_nilai : 0;
+                                    $totalNilaiPenguji1 = $penilaianPenguji1 ? $penilaianPenguji1->total_nilai : 0;
+                                    $totalNilaiPenguji2 = $penilaianPenguji2 ? $penilaianPenguji2->total_nilai : 0;
+
+                                    $jumlahPenilaian = 0;
+                                    $totalNilai = 0;
+
+                                    if ($totalNilaiKetua > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiKetua;
+                                    }
+                                    if ($totalNilaiSekretaris > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiSekretaris;
+                                    }
+
+                                    if ($totalNilaiPenguji1 > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiPenguji1;
+                                    }
+                                    if ($totalNilaiPenguji2 > 0) {
+                                        $jumlahPenilaian++;
+                                        $totalNilai += $totalNilaiPenguji2;
+                                    }
+
+                                   
+
+                                    $rataRata = $jumlahPenilaian > 0 ? number_format($totalNilai / $jumlahPenilaian, 2) : 'N/A';
+                                @endphp
+                                {{ $rataRata }}
+                            </td>
+                            <td>
+                                <a href="{{ route('session.edit', $sidang->id_session) }}" class="btn btn-secondary btn-sm">
+                                    <i class="fas fa-edit"></i> Update
+                                </a>
+                                <form action="{{ route('session.destroy', $sidang->id_session) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this item?');">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="12" class="text-center">Tidak ada data sidang.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+
+    @push('scripts')
+    <script>
+        // Fungsi untuk menghitung rata-rata total nilai
+        function hitungRataRata(totalNilaiKetua, totalNilaiPenguji1, totalNilaiPenguji2, totalNilaiSekretaris) {
+            let jumlahPenilaian = 0;
+            let totalNilai = 0;
+
+            if (totalNilaiKetua > 0) {
+                jumlahPenilaian++;
+                totalNilai += totalNilaiKetua;
+            }
+            if (totalNilaiSekretaris > 0) {
+                jumlahPenilaian++;
+                totalNilai += totalNilaiSekretaris;
+            }
+
+            if (totalNilaiPenguji1 > 0) {
+                jumlahPenilaian++;
+                totalNilai += totalNilaiPenguji1;
+            }
+
+            if (totalNilaiPenguji2 > 0) {
+                jumlahPenilaian++;
+                totalNilai += totalNilaiPenguji2;
+            }
+
+            
+
+            let rataRata = jumlahPenilaian > 0 ? (totalNilai / jumlahPenilaian).toFixed(2) : 'N/A';
+            return rataRata;
+        }
+
+        // Memanggil fungsi saat halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', function () {
+            @foreach($data_sessions as $sidang)
+            let totalNilaiKetua_{{ $sidang->id_session }} = parseFloat("{{ $sidang->penilaians()->where('jabatan', 'KetuaSidang')->first()->total_nilai ?? 0 }}");
+            let totalNilaiSekretaris_{{ $sidang->id_session }} = parseFloat("{{ $sidang->penilaians()->where('jabatan', 'SekretarisSidang')->first()->total_nilai ?? 0 }}");
+            let totalNilaiPenguji1_{{ $sidang->id_session }} = parseFloat("{{ $sidang->penilaians()->where('jabatan', 'Penguji1')->first()->total_nilai ?? 0 }}");
+            let totalNilaiPenguji2_{{ $sidang->id_session }} = parseFloat("{{ $sidang->penilaians()->where('jabatan', 'Penguji2')->first()->total_nilai ?? 0 }}");
+
+                let rataRata = hitungRataRata(totalNilaiKetua_{{ $sidang->id_session }}, totalNilaiSekretaris_{{ $sidang->id_session }}, totalNilaiPenguji1_{{ $sidang->id_session }}, totalNilaiPenguji2_{{ $sidang->id_session }});
+                console.log('Rata-rata total nilai untuk sidang {{ $sidang->id_session }}: ' + rataRata);
+            @endforeach
+        });
+    </script>
+    @endpush
 @endsection

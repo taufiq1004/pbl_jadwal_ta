@@ -44,7 +44,7 @@ class PenilaianController extends Controller
 
         // Calculation of total_nilai remains the same
 
-        Penilaian::create($request->all());
+         Penilaian::create($request->all());
 
         return redirect()->route('backend.penilaian')->with('success', 'Penilaian berhasil disimpan.');
     }
@@ -118,6 +118,14 @@ class PenilaianController extends Controller
 
         return redirect()->route('backend.penilaian')->with('success', 'Penilaian berhasil dihapus.');
     }
+
+    public function getAverageScore($sessionId)
+{
+    $average = Penilaian::where('ta_id', $sessionId)->avg('total_nilai');
+
+    return response()->json(['average' => $average]);
+}
+
 }
 
     // update and destroy methods remain the same
