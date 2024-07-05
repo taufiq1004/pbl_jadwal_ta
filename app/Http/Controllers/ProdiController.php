@@ -32,7 +32,7 @@ class ProdiController extends Controller
 
         Prodi::create($request->all());
 
-        return redirect()->route('backend.prodi')
+        return redirect()->route('prodi.index')
                          ->with('success', 'Prodi created successfully.');
     }
 
@@ -58,7 +58,7 @@ class ProdiController extends Controller
        // $prodi->update($request->all());
 
         DB::table('prodis')->where('id_prodi',$id)->update($data);
-        return redirect()->route('backend.prodi')
+        return redirect()->route('prodi.index')
                          ->with('success', 'Prodi updated successfully.');
     }
 
@@ -66,7 +66,7 @@ class ProdiController extends Controller
     {
         DB::table ('prodis')->where('id_prodi',$id)->delete();
         //Prodi::destroy($id);
-        return redirect()->route('backend.prodi')
+        return redirect()->route('prodi.index')
                          ->with('success', 'Prodi deleted successfully.');
     }
 }

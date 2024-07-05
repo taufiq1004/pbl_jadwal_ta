@@ -15,11 +15,11 @@
                         </a>
                         <a href="{{ route('users.export_excel') }}" class="btn btn-success btn-sm">
                             <i class="fas fa-file-excel"></i> Export
-                        </a>                                              
+                        </a>
                         <!-- Button untuk membuka modal import -->
                         <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#importModal">
                             <i class="fas fa-cloud-upload-alt"></i> Import
-                        </button>                        
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -34,7 +34,6 @@
                                     <tr class="table-info">
                                         <th>No</th>
                                         <th>Name</th>
-                                        <th>Role</th>
                                         <th>Email</th>
                                         <th>Password</th>
                                         <th>Action</th>
@@ -45,10 +44,9 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $data->name }}</td>
-                                        <td>{{ $data->role }}</td>
                                         <td>{{ $data->email }}</td>
                                         <td>{{ $data->password }}</td>
-                                       
+
                                         <td>
                                             <a href="{{ route('users.show', ['id' => $data->id]) }}" class="btn btn-info btn-sm">
                                                 <i class="fas fa-eye"></i> Detail

@@ -1,7 +1,7 @@
 @extends('dashboard-content')
 @section('content')
     <div class="container-fluid py-4">
-        
+
         <div class="row">
             <div class="col-xl-4 col-md-6 mb-xl-0 mb-4">
                 <div class="card">

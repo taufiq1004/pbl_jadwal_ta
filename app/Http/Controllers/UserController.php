@@ -29,14 +29,14 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'role' => 'required|in:admin,mahasiswa,dosen',
+            // 'pro' => 'required|in:admin,mahasiswa,dosen',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8|confirmed',
         ]);
 
         User::create([
             'name' => $request->name,
-            'role' => $request->role,
+            // 'role' => $request->role,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -61,14 +61,14 @@ class UserController extends Controller
 {
     $request->validate([
         'name' => 'required',
-        'role' => 'required|in:admin,mahasiswa,dosen',
+        // 'role' => 'required|in:admin,mahasiswa,dosen',
         'email' => 'required|email|unique:users,email,' . $id,
         'password' => 'nullable|min:8|confirmed',
     ]);
 
     $data = [
         'name' => $request->name,
-        'role' => $request->role,
+        // 'role' => $request->role,
         'email' => $request->email,
     ];
 
@@ -88,7 +88,7 @@ class UserController extends Controller
         return redirect('/users')->with('success', 'User deleted successfully.');
     }
 
-  
+
     public function export_excel()
     {
         dd('export_excel method called'); // Debugging

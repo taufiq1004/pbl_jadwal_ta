@@ -14,16 +14,16 @@
                                     <label for="id_prodi" class="form-label">ID Prodi</label>
                                     <input type="text" class="form-control" id="id_prodi" name="id_prodi" required>
                                 </div>
-                               
+
                                 <div class="mb-3">
                                     <label for="name_prodi" class="form-label">Name Prodi</label>
                                     <input type="text" class="form-control" id="name_prodi" name="name_prodi" required>
                                 </div>
                                 <!-- Add other fields if necessary -->
                                 <button type="submit" class="btn btn-primary">Submit</button>
-                                <a href="{{ route('backend.prodi') }}" class="btn btn-secondary">Cancel</a>
+                                <a href="{{ route('prodi.index') }}" class="btn btn-secondary">Cancel</a>
                             </form>
-                            
+
                         </div>
                     </div>
                 </div>

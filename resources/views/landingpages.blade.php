@@ -60,17 +60,8 @@
                 <div class="row">
                     <div class="col-lg-10">
                         <h2 data-aos="fade-up" data-aos-delay="100">Selamat datang di SIPSITA</h2>
-                        <p data-aos="fade-up" data-aos-delay="200">Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit.
-                            Curabitur scelerisque nisi tincidunt rutrum tristique.
-                            Praesent sed iaculis enim. Pellentesque mauris dui, consequat id vestibulum sit amet,
-                            interdum a elit.
-                            Mauris et dui vitae arcu imperdiet porttitor. Donec id turpis in lorem luctus egestas. Morbi
-                            massa urna, facilisis ut tellus sed, hendrerit congue ipsum.
-                            Nullam nisi metus, molestie sed nisl ac, sagittis maximus orci. Fusce viverra libero auctor
-                            nisi tincidunt, sit amet laoreet dui semper.
-                            Aenean lacinia feugiat ornare. Nunc luctus turpis vitae risus porta consectetur. In magna
-                            felis, mollis vitae condimentum vel, facilisis ut nisi.
+                        <p data-aos="fade-up" data-aos-delay="200">
+                            Sistem Informasi pelayanan untuk penjadwalan sidang tugas akhir
                         </p>
                     </div>
                     <div class="col-lg-5">
@@ -79,6 +70,44 @@
             </div>
         </section>
         <!-- End Hero Section -->
+          <!-- Tambahkan di file HTML setelah section "Contact" dan sebelum "Footer" -->
+<section id="informasi-ta" class="informasi-ta">
+    <!--  Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Informasi Tugas Akhir</h2>
+        <p>Berikut adalah informasi penting mengenai tugas akhir seperti jadwal, panduan, dan kuota sidang.</p>
+    </div>
+    <!-- End Section Title -->
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                    <i class="bi bi-calendar"></i>
+                    <h3>Jadwal Tugas Akhir</h3>
+                    <p>Lihat jadwal lengkap tugas akhir, mulai dari pendaftaran, pengajuan proposal, hingga sidang akhir.</p>
+                    <a href="jadwal.html" class="btn btn-primary">Lihat Jadwal</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                    <i class="bi bi-book"></i>
+                    <h3>Panduan Tugas Akhir</h3>
+                    <p>Unduh panduan lengkap pengerjaan tugas akhir yang mencakup format penulisan, tata cara pengajuan, dan lainnya.</p>
+                    <a href="panduan.html" class="btn btn-primary">Unduh Panduan</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                    <i class="bi bi-graph-up"></i>
+                    <h3>Kuota Sidang</h3>
+                    <p>Informasi terkini mengenai kuota sidang yang tersedia untuk periode ini.</p>
+                    <a href="kuota.html" class="btn btn-primary">Lihat Kuota</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Informasi Tugas Akhir Section -->
         <!-- About Section - Home Page -->
         <section id="about" class="about">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -387,6 +416,45 @@
             </div>
         </section>
         <!-- End Contact Section -->
+        <!-- Tambahkan di file HTML setelah section "Contact" dan sebelum "Footer" -->
+<section id="informasi-ta" class="informasi-ta">
+    <!--  Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Informasi Tugas Akhir</h2>
+        <p>Berikut adalah informasi penting mengenai tugas akhir seperti jadwal, panduan, dan kuota sidang.</p>
+    </div>
+    <!-- End Section Title -->
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="200">
+                    <i class="bi bi-calendar"></i>
+                    <h3>Jadwal Tugas Akhir</h3>
+                    <p>Lihat jadwal lengkap tugas akhir, mulai dari pendaftaran, pengajuan proposal, hingga sidang akhir.</p>
+                    <a href="jadwal.html" class="btn btn-primary">Lihat Jadwal</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="300">
+                    <i class="bi bi-book"></i>
+                    <h3>Panduan Tugas Akhir</h3>
+                    <p>Unduh panduan lengkap pengerjaan tugas akhir yang mencakup format penulisan, tata cara pengajuan, dan lainnya.</p>
+                    <a href="panduan.html" class="btn btn-primary">Unduh Panduan</a>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="info-item" data-aos="fade" data-aos-delay="400">
+                    <i class="bi bi-graph-up"></i>
+                    <h3>Kuota Sidang</h3>
+                    <p>Informasi terkini mengenai kuota sidang yang tersedia untuk periode ini.</p>
+                    <a href="kuota.html" class="btn btn-primary">Lihat Kuota</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End Informasi Tugas Akhir Section -->
+
     </main>
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">

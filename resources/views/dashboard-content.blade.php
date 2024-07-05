@@ -95,7 +95,7 @@
             <li class="nav-item d-flex align-items-center">
               <a href="#" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Masuk</span>
+                <span class="d-sm-inline d-none">Masuk</span>a
               </a>
             </li>
           </ul>
@@ -112,7 +112,7 @@
     </div>
     <div class="container my-3">
       @yield('content')
-     
+
  </div>
      @include('layouts.backend.footer')
 
