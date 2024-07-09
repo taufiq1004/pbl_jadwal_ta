@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('validasi_ta', function (Blueprint $table) {
             $table->id('id_validasi');
             $table->bigInteger('ta_id')->unsigned();
-            $table->string('komentar');
-            $table->string('status');
+            $table->string('status')->nullable();
+            $table->date('tgl_validasi')->nullable();
+            $table->string('komentar')->nullable();
         });
 
         Schema::table('validasi_ta', function (Blueprint $table) {

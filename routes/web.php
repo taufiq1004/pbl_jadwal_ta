@@ -17,9 +17,11 @@ use App\Http\Controllers\{
     UserController,
     Auth\AuthenticatedSessionController
 };
+use App\Models\Student;
 use Illuminate\Support\Facades\{
     Mail,
-    Route
+    Route,
+    Auth
 };
 
 /*
@@ -54,8 +56,11 @@ Route::get('/test-email', function () {
     return 'Test email sent';
 });
 
+
+
+
 // Middleware untuk rute yang memerlukan autentikasi dan verifikasi
-Route::middleware(['auth', 'verified'])->group(function () {
+
 
     Route::resource('students', StudentController::class);
     Route::resource('thesis', ThesisController::class);
@@ -68,12 +73,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
     Route::get('/api/available-rooms', [SessionController::class, 'getAvailableRooms']);
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/profile/landingpages', [ProfileController::class, 'landingPages'])->name('profile.landingpages');
-});
 
-// Middleware untuk rute dengan peran admin
+    Route::middleware('auth')->group(function () {
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('auth.login');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+       // Route::patch('/profile', [ProfileController::class, 'update'])run->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/profile/landingpages', [ProfileController::class, 'landingPages'])->name('profile.landingpages');
+
+    });
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     // Prodi Routes
     Route::get('/prodi', [ProdiController::class, 'index'])->name('prodi.index');
@@ -94,7 +102,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 });
 
 
-Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'verified', 'role:admin|mahasiswa'])->group(function () {
     // Lecturer Routes
     Route::get('/lecturer', [LecturerController::class, 'index'])->name('lecturer.index');
     Route::get('lecturer/export_excel', [LecturerController::class, 'export_excel']);
@@ -107,6 +115,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/lecturers/{id}', [LecturerController::class, 'show'])->name('lecturer.show');
     Route::resource('lecturers', LecturerController::class);
 });
+
 Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function () {
     // Room Routes
     Route::get('/room', [RoomController::class, 'index'])->name('room.index');
@@ -117,9 +126,10 @@ Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function ()
     Route::delete('/room/{id}', [RoomController::class, 'destroy'])->name('room.destroy');
     Route::get('/api/available-rooms', [SessionController::class, 'getAvailableRooms']);
 });
+
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     // Student Routes
-    Route::get('/student', [RoomController::class, 'index'])->name('student.index');
+    Route::get('/student', [StudentController::class, 'index'])->name('student.index');
     Route::get('/formStudent', [StudentController::class, 'create'])->name('formStudent');
     Route::post('/student/store', [StudentController::class, 'store'])->name('student.store');
     Route::get('/student/edit/{id}', [StudentController::class, 'edit'])->name('student.edit');
@@ -129,9 +139,14 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::post('student/import_excel', [StudentController::class, 'import_excel'])->name('student.import_excel');
     Route::resource('students', StudentController::class);
 });
-Route::middleware(['auth', 'verified', 'role:admin|mahasiswa|kaprodi|dosen'])->group(function () {
+
+Route::middleware(['auth', 'verified', 'role:admin|dosen|kaprodi|mahasiswa'])->group(function () {
     // Thesis Routes
-    Route::get('/thesis', [RoomController::class, 'index'])->name('thesis.index');
+    Route::get('/formThesis', function () {
+        return view('backend.form.formThesis');
+    })->name('formThesis');
+    Route::get('/backend/thesis', [App\Http\Controllers\ThesisController::class, 'index'])->name('backend.thesis');
+    Route::get('/thesis', [ThesisController::class, 'index'])->name('thesis.index');
     Route::get('/formThesis', [ThesisController::class, 'create'])->name('formThesis');
     Route::post('/thesis/store', [ThesisController::class, 'store'])->name('thesis.store');
     Route::get('/thesis/{id}/edit', [ThesisController::class, 'edit'])->name('thesis.edit');
@@ -139,10 +154,13 @@ Route::middleware(['auth', 'verified', 'role:admin|mahasiswa|kaprodi|dosen'])->g
     Route::delete('/thesis/delete/{id}', [ThesisController::class, 'destroy'])->name('thesis.destroy');
     Route::get('/thesis/{id}', [ThesisController::class, 'show'])->name('thesis.show');
     Route::get('/download/{file}', [ThesisController::class, 'download'])->name('thesis.download');
+    Route::resource('thesis', ThesisController::class);
 });
+
 Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function () {
     // Session Routes
-    Route::get('/session', [RoomController::class, 'index'])->name('session.index');
+    Route::get('/backend/session', [App\Http\Controllers\SessionController::class, 'index'])->name('backend.session');
+    Route::get('/session', [SessionController::class, 'index'])->name('session.index');
     Route::get('/formsession', [SessionController::class, 'create'])->name('formsession');
     Route::post('/session/store', [SessionController::class, 'store'])->name('session.store');
     Route::get('/session/{id}/edit', [SessionController::class, 'edit'])->name('session.edit');
@@ -151,19 +169,16 @@ Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function ()
     Route::get('session/export_excel', [SessionController::class, 'export_excel']);
     Route::post('session/import_excel', [SessionController::class, 'import_excel'])->name('session.import_excel');
     Route::get('/session/get-pembimbing', [SessionController::class, 'getPembimbing'])->name('session.getPembimbing');
+    Route::get('/sessions/{session}/print', [SessionController::class, 'print'])->name('sessions.print');
+    // Route::get('/session/report', [SessionController::class, 'report'])->name('session.report');
+    Route::get('/session/{id}', [SessionController::class, 'show'])->name('session.show');
+
 
 
 });
 
-Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
-    Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
-    Route::post('/penilaian', [PenilaianController::class, 'store'])->name('penilaian.store');
-    Route::get('/penilaian/edit/{id}', [PenilaianController::class, 'edit'])->name('penilaian.edit');
-    Route::put('/penilaian/update/{id}', [PenilaianController::class, 'update'])->name('penilaian.update');
-    Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
-});
 Route::middleware(['auth', 'verified', 'role:admin|kaprodi'])->group(function () {
-    Route::get('/sesi', [RoomController::class, 'index'])->name('sesi.index');
+    Route::get('/sesi', [sesiController::class, 'index'])->name('sesi.index');
     Route::get('/sesi/create', [SesiController::class, 'create'])->name('sesi.create');
     Route::post('/sesi', [SesiController::class, 'store'])->name('sesi.store');
     Route::get('/sesi/edit/{id}', [SesiController::class, 'edit'])->name('sesi.edit');
@@ -188,9 +203,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 });
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('backend.penilaian');
+Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
+    Route::get('/backend/penilaian', [App\Http\Controllers\PenilaianController::class, 'index'])->name('backend.penilaian');
+    Route::get('/penilaian', [PenilaianController::class, 'index'])->name('penilaian.index');
     Route::get('/penilaian/create', [PenilaianController::class, 'create'])->name('penilaian.create');
     Route::post('/penilaian', [PenilaianController::class, 'store'])->name('penilaian.store');
     Route::get('/penilaian/{id}/edit', [PenilaianController::class, 'edit'])->name('penilaian.edit');
@@ -198,13 +213,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/penilaian/{id}', [PenilaianController::class, 'destroy'])->name('penilaian.destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/validasiTa', [ValidasiTaController::class, 'index'])->name('backend.validasiTa');
+Route::middleware(['auth', 'verified', 'role:admin|dosen'])->group(function () {
+    Route::get('/validasiTa', [ValidasiTaController::class, 'index'])->name('validasiTa.index');
     Route::get('/validasiTa/create', [ValidasiTaController::class, 'create'])->name('backend.form.formValidasiTa');
     Route::post('/validasiTa/store', [ValidasiTaController::class, 'store'])->name('backend.form.formValidasiTa.store');
     Route::get('/validasiTa/edit/{id}', [ValidasiTaController::class, 'edit'])->name('backend.form.formEditValidasiTa');
     Route::put('/validasiTa/update/{id}', [ValidasiTaController::class, 'update'])->name('backend.form.formEditValidasiTa.update');
     Route::delete('/validasiTa/{id}', [ValidasiTaController::class, 'destroy'])->name('backend.form.formEditValidasiTa.destroy');
+    Route::put('/validasiTa/toggle/{id}', [ValidasiTaController::class, 'toggleValidationStatus'])->name('backend.form.formEditValidasiTa.toggleValidationStatus');
 });
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -36,7 +36,6 @@
                                         <th>No</th>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Password</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -46,7 +45,6 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $data->name }}</td>
                                         <td>{{ $data->email }}</td>
-                                        <td>{{ $data->password }}</td>
 
                                         <td>
                                             <a href="{{ route('users.show', ['id' => $data->id]) }}" class="btn btn-info btn-sm">

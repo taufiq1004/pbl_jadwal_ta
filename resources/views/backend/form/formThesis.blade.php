@@ -68,4 +68,49 @@
         </div>
     </div>
 </div>
+{{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formThesis = document.getElementById('formThesis');
+
+        formThesis.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            fetch('{{ route('thesis.store') }}', {
+                method: 'POST',
+                body: new FormData(formThesis),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Handle success case
+                console.log('Success:', data);
+                alert('Thesis data added successfully.');
+
+                // Clear form inputs
+                formThesis.reset();
+
+                // Reload the table in validasiTa page
+                fetch('{{ route('validasiTa') }}')
+                    .then(response => response.text())
+                    .then(html => {
+                        document.getElementById('dataTable').innerHTML = html;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching table data:', error);
+                    });
+            })
+            .catch((error) => {
+                // Handle error case
+                console.error('Error:', error);
+                alert('An error occurred while adding thesis data.');
+            });
+        });
+    });
+</script> --}}
+
+
 @endsection

@@ -5,66 +5,71 @@ namespace App\Http\Controllers;
 use App\Models\ValidasiTa;
 use App\Models\Thesis;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ValidasiTaController extends Controller
 {
     public function index()
     {
-        $data_validasi_ta = DB::table('validasi_ta')
-            ->join('thesis', 'validasi_ta.ta_id', '=', 'thesis.id_ta')
-            ->select('validasi_ta.*', 'thesis.judul as thesis_judul')
-            ->orderBy('id_validasi')
-            ->get();
-        
+        $user = Auth::user();
+
+        // Pastikan $user telah didefinisikan
+        if (isset($user) && !is_null($user)) {
+            // Query untuk mendapatkan data validasi TA
+            $data_validasi_ta = Thesis::with('validasi')
+            ->join('lecturers as pembimbing1', 'thesis.pembimbing1', '=', 'pembimbing1.id_lecturer')
+            ->join('lecturers as pembimbing2', 'thesis.pembimbing2', '=', 'pembimbing2.id_lecturer')
+                ->whereHas('validasi', function ($query) use ($user) {
+                    $query->where('pembimbing1.name', $user->name)
+                        ->orWhere('pembimbing2.name', $user->name);
+                })
+                ->get();
+        } else {
+            // Handle jika $user tidak didefinisikan atau null
+            $data_validasi_ta = collect(); // Mengembalikan collection kosong
+        }
+
+        // $data_validasi_ta = ValidasiTa::whereHas('thesis', function($query) use ($user) {
+        //     $query->where('pembimbing1', $user->id)->orWhere('pembimbing2', $user->id);
+        // })->with('thesis')->get();
         return view('backend.validasiTa', compact('data_validasi_ta'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        $theses = Thesis::all();
-        return view('backend.form.formValidasiTa', compact('theses'));
+        $taId = $request->query('ta_id');
+        $nim = $request->query('nim');
+        $namaMahasiswa = $request->query('nama_mahasiswa');
+        $judul = $request->query('judul');
+
+        return view('admin.validasi_ta.create', compact('taId', 'nim', 'namaMahasiswa', 'judul'));
     }
 
-    public function store(Request $request)
+    // Menyimpan validasi baru ke database
+    public function update(Request $request, string $id)
     {
         $request->validate([
-            'ta_id' => 'required',
-            'komentar' => 'required',
-            'status' => 'required',
+            'tanggal_validasi' => 'required|date',
         ]);
 
-        ValidasiTa::create($request->all());
-        
-        return redirect('/validasiTa')->with('success', 'Validasi TA added successfully.');
-    }
+        // Temukan data validasi berdasarkan ID
+        $validasi = ValidasiTa::find($id);
 
-    public function edit($id)
-    {
-        $validasi_ta = ValidasiTa::findOrFail($id);
-        $theses = Thesis::all();
-        
-        return view('backend.form.formEditValidasiTa', compact('validasi_ta', 'theses'));
-    }
+        if ($validasi) {
+            // Toggle status
+            $newStatus = ($validasi->status == 'Valid') ? 'Tidak Valid' : 'Valid';
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'ta_id' => 'required',
-            'komentar' => 'required',
-            'status' => 'required',
-        ]);
+            // Update data
+            $validasi->update([
+                'status' => $newStatus,
+                'tgl_validasi' => $request->tanggal_validasi,
+            ]);
 
-        $validasi_ta = ValidasiTa::findOrFail($id);
-        $validasi_ta->update($request->all());
-        
-        return redirect('/validasiTa')->with('success', 'Validasi TA updated successfully.');
-    }
+            // Redirect dengan pesan sukses jika berhasil
+            return redirect()->route('validasiTa.index')->with('success', 'Status validasi berhasil diubah.');
+        }
 
-    public function destroy($id)
-    {
-        ValidasiTa::findOrFail($id)->delete();
-        
-        return redirect('/validasiTa')->with('success', 'Validasi TA deleted successfully.');
+        // Redirect dengan pesan error jika data tidak ditemukan
+        return redirect()->route('validasiTa.index')->with('error', 'Data validasi tidak ditemukan.');
     }
 }

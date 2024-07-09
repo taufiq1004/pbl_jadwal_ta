@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Models\Penilaian;
 use App\Models\Thesis;
 use App\Models\Lecturer;
-use Illuminate\Support\Facades\DB;
 
 class PenilaianController extends Controller
 {
@@ -42,11 +41,9 @@ class PenilaianController extends Controller
             'komentar' => 'nullable|string',
         ]);
 
-        // Calculation of total_nilai remains the same
+        Penilaian::create($request->all());
 
-         Penilaian::create($request->all());
-
-        return redirect()->route('backend.penilaian')->with('success', 'Penilaian berhasil disimpan.');
+        return redirect()->route('penilaian.index')->with('success', 'Penilaian berhasil disimpan.');
     }
 
     public function edit($id)
@@ -78,7 +75,7 @@ class PenilaianController extends Controller
 
         $penilaian = Penilaian::findOrFail($id);
 
-        $totalNilai = 
+        $totalNilai =
             ($request->presentasi_sikap_penampilan * 0.05) +
             ($request->presentasi_komunikasi_sistematika * 0.05) +
             ($request->presentasi_penguasaan_materi * 0.20) +
@@ -108,7 +105,7 @@ class PenilaianController extends Controller
             'komentar' => $request->komentar,
         ]);
 
-        return redirect()->route('backend.penilaian')->with('success', 'Penilaian berhasil diperbarui.');
+        return redirect()->route('penilaian.index')->with('success', 'Penilaian berhasil diperbarui.');
     }
 
     public function destroy($id)
@@ -116,16 +113,13 @@ class PenilaianController extends Controller
         $penilaian = Penilaian::findOrFail($id);
         $penilaian->delete();
 
-        return redirect()->route('backend.penilaian')->with('success', 'Penilaian berhasil dihapus.');
+        return redirect()->route('penilaian.index')->with('success', 'Penilaian berhasil dihapus.');
     }
 
     public function getAverageScore($sessionId)
-{
-    $average = Penilaian::where('ta_id', $sessionId)->avg('total_nilai');
+    {
+        $average = Penilaian::where('ta_id', $sessionId)->avg('total_nilai');
 
-    return response()->json(['average' => $average]);
+        return response()->json(['average' => $average]);
+    }
 }
-
-}
-
-    // update and destroy methods remain the same

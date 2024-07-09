@@ -416,44 +416,6 @@
             </div>
         </section>
         <!-- End Contact Section -->
-        <!-- Tambahkan di file HTML setelah section "Contact" dan sebelum "Footer" -->
-<section id="informasi-ta" class="informasi-ta">
-    <!--  Section Title -->
-    <div class="container section-title" data-aos="fade-up">
-        <h2>Informasi Tugas Akhir</h2>
-        <p>Berikut adalah informasi penting mengenai tugas akhir seperti jadwal, panduan, dan kuota sidang.</p>
-    </div>
-    <!-- End Section Title -->
-    <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4">
-            <div class="col-lg-4">
-                <div class="info-item" data-aos="fade" data-aos-delay="200">
-                    <i class="bi bi-calendar"></i>
-                    <h3>Jadwal Tugas Akhir</h3>
-                    <p>Lihat jadwal lengkap tugas akhir, mulai dari pendaftaran, pengajuan proposal, hingga sidang akhir.</p>
-                    <a href="jadwal.html" class="btn btn-primary">Lihat Jadwal</a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="info-item" data-aos="fade" data-aos-delay="300">
-                    <i class="bi bi-book"></i>
-                    <h3>Panduan Tugas Akhir</h3>
-                    <p>Unduh panduan lengkap pengerjaan tugas akhir yang mencakup format penulisan, tata cara pengajuan, dan lainnya.</p>
-                    <a href="panduan.html" class="btn btn-primary">Unduh Panduan</a>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="info-item" data-aos="fade" data-aos-delay="400">
-                    <i class="bi bi-graph-up"></i>
-                    <h3>Kuota Sidang</h3>
-                    <p>Informasi terkini mengenai kuota sidang yang tersedia untuk periode ini.</p>
-                    <a href="kuota.html" class="btn btn-primary">Lihat Kuota</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Informasi Tugas Akhir Section -->
 
     </main>
     <!-- ======= Footer ======= -->

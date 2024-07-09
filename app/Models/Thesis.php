@@ -28,4 +28,9 @@ class Thesis extends Model
 
     // Disable timestamps
     public $timestamps = false;
+
+    public function validasi()
+    {
+        return $this->hasOne(ValidasiTa::class, 'ta_id', 'id_ta');
+    }
 }

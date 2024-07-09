@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1 class="mb-4">Tambah Nilai</h1>
+        <h1 class="mb-4">Edit Penilaian</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -14,14 +14,15 @@
             </div>
         @endif
 
-        <form action="{{ route('penilaian.store') }}" method="POST">
+        <form action="{{ route('penilaian.update', $penilaian->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="mb-3 mt-4">
                 <label for="ta_id" class="form-label">Tugas Akhir</label>
                 <select name="ta_id" id="ta_id" class="form-control" required>
-                    <option value="" disabled selected>Pilih Tugas Akhir</option>
+                    <option value="" disabled>Pilih Tugas Akhir</option>
                     @foreach ($theses as $thesis)
-                        <option value="{{ $thesis->id_ta }}" {{ old('ta_id') == $thesis->id_ta ? 'selected' : '' }}>
+                        <option value="{{ $thesis->id_ta }}" {{ $penilaian->ta_id == $thesis->id_ta ? 'selected' : '' }}>
                             {{ $thesis->judul }}
                         </option>
                     @endforeach
@@ -31,25 +32,25 @@
                 <label class="form-label">Jabatan</label>
                 <select class="form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan">
                     <option value="">Pilih Jabatan</option>
-                    <option value="Pembimbing1" {{ old('jabatan') == 'Pembimbing1' ? 'selected' : '' }}>Pembimbing 1</option>
-                    <option value="Pembimbing2" {{ old('jabatan') == 'Pembimbing2' ? 'selected' : '' }}>Pembimbing 2</option>
-                    <option value="KetuaSidang" {{ old('jabatan') == 'KetuaSidang' ? 'selected' : '' }}>Ketua Sidang</option>
-                    <option value="SekretarisSidang" {{ old('jabatan') == 'SekretarisSidang' ? 'selected' : '' }}>Sekretaris Sidang</option>
-                    <option value="Penguji1" {{ old('jabatan') == 'Penguji1' ? 'selected' : '' }}>Penguji 1</option>
-                    <option value="Penguji2" {{ old('jabatan') == 'Penguji2' ? 'selected' : '' }}>Penguji 2</option>
+                    <option value="Pembimbing1" {{ $penilaian->jabatan == 'Pembimbing1' ? 'selected' : '' }}>Pembimbing 1</option>
+                    <option value="Pembimbing2" {{ $penilaian->jabatan == 'Pembimbing2' ? 'selected' : '' }}>Pembimbing 2</option>
+                    <option value="KetuaSidang" {{ $penilaian->jabatan == 'KetuaSidang' ? 'selected' : '' }}>Ketua Sidang</option>
+                    <option value="SekretarisSidang" {{ $penilaian->jabatan == 'SekretarisSidang' ? 'selected' : '' }}>Sekretaris Sidang</option>
+                    <option value="Penguji1" {{ $penilaian->jabatan == 'Penguji1' ? 'selected' : '' }}>Penguji 1</option>
+                    <option value="Penguji2" {{ $penilaian->jabatan == 'Penguji2' ? 'selected' : '' }}>Penguji 2</option>
                 </select>
                 @error('jabatan')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
                 @enderror
-                </div>
+            </div>
             <div class="mb-3">
                 <label for="pembimbing1_id">Dosen</label>
                 <select name="pembimbing1_id" id="pembimbing1_id" class="form-control" required>
-                    <option value="" disabled selected>Pilih Nama Dosen</option>
+                    <option value="" disabled>Pilih Nama Dosen</option>
                     @foreach ($lecturers as $lecturer)
-                        <option value="{{ $lecturer->id_lecturer }}" {{ old('pembimbing1_id') == $lecturer->id_lecturer ? 'selected' : '' }}>
+                        <option value="{{ $lecturer->id_lecturer }}" {{ $penilaian->pembimbing1_id == $lecturer->id_lecturer ? 'selected' : '' }}>
                             {{ $lecturer->name }}
                         </option>
                     @endforeach
@@ -65,18 +66,17 @@
                     <!-- Sikap dan Penampilan -->
                     <label for="presentasi_sikap_penampilan">a. Sikap dan Penampilan:</label>
                     <input type="number" name="presentasi_sikap_penampilan" id="presentasi_sikap_penampilan"
-                        class="form-control" min="0" max="100" value="{{ old('presentasi_sikap_penampilan') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->presentasi_sikap_penampilan }}">
 
-                    <!-- Komunikasi dan Sistematika -->
                     <!-- Komunikasi dan Sistematika -->
                     <label for="presentasi_komunikasi_sistematika">b. Komunikasi dan Sistematika:</label>
                     <input type="number" name="presentasi_komunikasi_sistematika" id="presentasi_komunikasi_sistematika"
-                        class="form-control" min="0" max="100" value="{{ old('presentasi_komunikasi_sistematika') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->presentasi_komunikasi_sistematika }}">
 
                     <!-- Penguasaan Materi -->
                     <label for="presentasi_penguasaan_materi">c. Penguasaan Materi:</label>
                     <input type="number" name="presentasi_penguasaan_materi" id="presentasi_penguasaan_materi"
-                        class="form-control" min="0" max="100" value="{{ old('presentasi_penguasaan_materi') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->presentasi_penguasaan_materi }}">
                 </div>
 
                 <!-- Makalah -->
@@ -88,33 +88,33 @@
                     <label for="makalah_identifikasi_masalah">a. Identifikasi Masalah, Tujuan dan Kontribusi
                         Penelitian:</label>
                     <input type="number" name="makalah_identifikasi_masalah" id="makalah_identifikasi_masalah"
-                        class="form-control" min="0" max="100" value="{{ old('makalah_identifikasi_masalah') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->makalah_identifikasi_masalah }}">
 
                     <!-- Relevansi Teori/Referensi Pustaka dan Konsep dengan Masalah Penelitian -->
                     <label for="makalah_relevansi_teori">b. Relevansi Teori/Referensi Pustaka dan Konsep dengan Masalah
                         Penelitian:</label>
                     <input type="number" name="makalah_relevansi_teori" id="makalah_relevansi_teori" class="form-control"
-                        min="0" max="100" value="{{ old('makalah_relevansi_teori') }}">
+                        min="0" max="100" value="{{ $penilaian->makalah_relevansi_teori }}">
 
                     <!-- Metode Algoritma yang Digunakan -->
                     <label for="makalah_metode_algoritma">c. Metode Algoritma yang Digunakan:</label>
                     <input type="number" name="makalah_metode_algoritma" id="makalah_metode_algoritma" class="form-control"
-                        min="0" max="100" value="{{ old('makalah_metode_algoritma') }}">
+                        min="0" max="100" value="{{ $penilaian->makalah_metode_algoritma }}">
 
                     <!-- Hasil dan Pembahasan -->
                     <label for="makalah_hasil_pembahasan">d. Hasil dan Pembahasan:</label>
                     <input type="number" name="makalah_hasil_pembahasan" id="makalah_hasil_pembahasan" class="form-control"
-                        min="0" max="100" value="{{ old('makalah_hasil_pembahasan') }}">
+                        min="0" max="100" value="{{ $penilaian->makalah_hasil_pembahasan }}">
 
                     <!-- Kesimpulan dan Saran -->
                     <label for="makalah_kesimpulan_saran">e. Kesimpulan dan Saran:</label>
                     <input type="number" name="makalah_kesimpulan_saran" id="makalah_kesimpulan_saran" class="form-control"
-                        min="0" max="100" value="{{ old('makalah_kesimpulan_saran') }}">
+                        min="0" max="100" value="{{ $penilaian->makalah_kesimpulan_saran }}">
 
                     <!-- Penggunaan Bahasa dan Tata Tulis -->
                     <label for="makalah_bahasa_tata_tulis">f. Penggunaan Bahasa dan Tata Tulis:</label>
                     <input type="number" name="makalah_bahasa_tata_tulis" id="makalah_bahasa_tata_tulis"
-                        class="form-control" min="0" max="100" value="{{ old('makalah_bahasa_tata_tulis') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->makalah_bahasa_tata_tulis }}">
                 </div>
 
                 <!-- Produk -->
@@ -125,18 +125,18 @@
                     <!-- Kesesuaian Fungsional Sistem -->
                     <label for="produk_kesesuaian_fungsional">a. Kesesuaian Fungsional Sistem:</label>
                     <input type="number" name="produk_kesesuaian_fungsional" id="produk_kesesuaian_fungsional"
-                        class="form-control" min="0" max="100" value="{{ old('produk_kesesuaian_fungsional') }}">
+                        class="form-control" min="0" max="100" value="{{ $penilaian->produk_kesesuaian_fungsional }}">
                 </div>
             </div>
 
             <div class="form-group d-flex align-items-center mb-3">
                 <button type="button" class="btn btn-primary mr-3" onclick="hitungTotal()">Hitung Total</button>
-                <span id="totalNilai" class="border border-4 p-2">0</span>
-                <input type="hidden" name="total_nilai" id="inputTotalNilai" value="0">
+                <span id="totalNilai" class="border border-4 p-2">{{ $penilaian->total_nilai }}</span>
+                <input type="hidden" name="total_nilai" id="inputTotalNilai" value="{{ $penilaian->total_nilai }}">
             </div>
             <div class="form-group mb-3">
                 <b><label for="komentar">Komentar:</label></b>
-                <textarea name="komentar" id="komentar" class="form-control" rows="3">{{ old('komentar') }}</textarea>
+                <textarea name="komentar" id="komentar" class="form-control" rows="3">{{ $penilaian->komentar }}</textarea>
             </div>
 
             <button type="submit" class="btn btn-primary">Simpan</button>

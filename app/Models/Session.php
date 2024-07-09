@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'id_session';
     protected $fillable = [
         'id_session',
         'ta_id',

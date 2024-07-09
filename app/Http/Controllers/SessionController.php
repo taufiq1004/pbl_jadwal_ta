@@ -9,6 +9,8 @@ use App\Imports\ImportSession;
 use App\Exports\ExportSession;
 use App\Models\Room;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class SessionController extends Controller
 {
@@ -45,6 +47,7 @@ class SessionController extends Controller
         $thesis = DB::table('thesis')->get();
         $lecturers = DB::table('lecturers')->get();
         $rooms = DB::table('rooms')->get();
+        $students = DB::table('students')->get();
 
         return view('backend.form.formSession', compact('thesis', 'lecturers', 'rooms'));
     }
@@ -68,7 +71,7 @@ class SessionController extends Controller
             ],
             'date_session' => 'required|date',
         ]);
-    
+
         try {
             Session::create([
                 'ta_id' => $request->ta_id,
@@ -80,13 +83,13 @@ class SessionController extends Controller
                 'date_session' => $request->date_session,
                 'sesi' => Room::where('id_room', $request->no_room)->value('sesi'),
             ]);
-    
+
             return redirect('/session')->with('success', 'Session added successfully.');
         } catch (\Exception $e) {
             return back()->withInput()->withErrors(['error' => 'Failed to add session. ' . $e->getMessage()]);
         }
     }
-    
+
 
     public function edit($id)
     {
@@ -124,6 +127,33 @@ class SessionController extends Controller
         return redirect('/session')->with('success', 'Session updated successfully.');
     }
 
+    public function show($id)
+{
+    $session = Session::with('thesis', 'penilaians', 'penilaianKetuaSidang', 'rooms')
+        ->join('lecturers as ketua_sidang', 'sessions.ketua_sidang', '=', 'ketua_sidang.id_lecturer')
+        ->join('lecturers as sekretaris', 'sessions.sekretaris', '=', 'sekretaris.id_lecturer')
+        ->join('lecturers as penguji1', 'sessions.penguji1', '=', 'penguji1.id_lecturer')
+        ->join('lecturers as penguji2', 'sessions.penguji2', '=', 'penguji2.id_lecturer')
+        ->join('rooms', 'sessions.no_room', '=', 'rooms.id_room')
+        ->join('thesis as judul_ta', 'sessions.ta_id', '=', 'judul_ta.id_ta')
+        ->select(
+            'sessions.*',
+            'judul_ta.nama as student_name',
+            'judul_ta.judul as judul_ta',
+            'ketua_sidang.name as ketua_name',
+            'sekretaris.name as sekretaris_name',
+            'penguji1.name as penguji1_name',
+            'penguji2.name as penguji2_name',
+            'rooms.no_room',
+            'rooms.sesi'
+        )
+        ->where('sessions.id_session', $id)
+        ->firstOrFail();
+
+    return view('backend.session_show', compact('session'));
+}
+
+
     public function destroy($id)
     {
         Session::findOrFail($id)->delete();
@@ -149,4 +179,75 @@ class SessionController extends Controller
 
         return back()->with('success', 'File imported successfully.');
     }
+
+    public function print($id)
+    {
+        $session = Session::with('thesis', 'penilaians')
+            ->join('lecturers as ketua_sidang', 'sessions.ketua_sidang', '=', 'ketua_sidang.id_lecturer')
+            ->join('lecturers as sekretaris', 'sessions.sekretaris', '=', 'sekretaris.id_lecturer')
+            ->join('lecturers as penguji1', 'sessions.penguji1', '=', 'penguji1.id_lecturer')
+            ->join('lecturers as penguji2', 'sessions.penguji2', '=', 'penguji2.id_lecturer')
+            ->join('rooms', 'sessions.no_room', '=', 'rooms.id_room')
+            ->join('thesis as judul_ta', 'sessions.ta_id', '=', 'judul_ta.id_ta')
+            ->where('sessions.id_session', $id)
+            ->select(
+                'sessions.*',
+                'judul_ta.nama as student_name',
+                'judul_ta.judul as judul_ta',
+                'ketua_sidang.name as ketua_name',
+                'sekretaris.name as sekretaris_name',
+                'penguji1.name as penguji1_name',
+                'penguji2.name as penguji2_name',
+                'rooms.no_room',
+                'rooms.sesi'
+            )
+            ->firstOrFail();
+
+        $data = [
+            'session' => $session,
+            'judul_ta' => $session->judul_ta ?? '-',
+            'nama_mahasiswa' => $session->student_name ?? '-',
+            'ketua_sidang' => $session->ketua_name,
+            'sekretaris_sidang' => $session->sekretaris_name,
+            'penguji_1' => $session->penguji1_name,
+            'penguji_2' => $session->penguji2_name,
+            'ruangan' => $session->no_room ?? '-',
+            'tanggal_sidang' => Carbon::parse($session->date_session)->format('d-m-Y'),
+            'total_nilai_ketua' => $session->penilaians()->where('jabatan', 'KetuaSidang')->first()->total_nilai ?? 0,
+            'total_nilai_sekretaris' => $session->penilaians()->where('jabatan', 'SekretarisSidang')->first()->total_nilai ?? 0,
+            'total_nilai_penguji1' => $session->penilaians()->where('jabatan', 'Penguji1')->first()->total_nilai ?? 0,
+            'total_nilai_penguji2' => $session->penilaians()->where('jabatan', 'Penguji2')->first()->total_nilai ?? 0,
+        ];
+
+        $pdf = PDF::loadView('backend.form.print', $data);
+
+        return $pdf->download('berita_acara_sidang.pdf');
+    }
+
+//     public function report()
+// {
+//     $data_sessions = Session::with('thesis', 'penilaians', 'penilaianKetuaSidang', 'rooms')
+//         ->join('lecturers as ketua_sidang', 'sessions.ketua_sidang', '=', 'ketua_sidang.id_lecturer')
+//         ->join('lecturers as sekretaris', 'sessions.sekretaris', '=', 'sekretaris.id_lecturer')
+//         ->join('lecturers as penguji1', 'sessions.penguji1', '=', 'penguji1.id_lecturer')
+//         ->join('lecturers as penguji2', 'sessions.penguji2', '=', 'penguji2.id_lecturer')
+//         ->join('rooms', 'sessions.no_room', '=', 'rooms.id_room')
+//         ->join('thesis as judul_ta', 'sessions.ta_id', '=', 'judul_ta.id_ta')
+//         ->select(
+//             'sessions.*',
+//             'judul_ta.nama as student_name',
+//             'judul_ta.judul as judul_ta',
+//             'ketua_sidang.name as ketua_name',
+//             'sekretaris.name as sekretaris_name',
+//             'penguji1.name as penguji1_name',
+//             'penguji2.name as penguji2_name',
+//             'rooms.no_room',
+//             'rooms.sesi'
+//         )
+//         ->orderBy('sessions.id_session')
+//         ->get();
+
+//     return view('backend.form.report',$data_sessions);
+// }
+
 }
